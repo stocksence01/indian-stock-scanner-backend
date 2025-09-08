@@ -1,0 +1,916 @@
+[E 250829 01:21:36 smartapi_service:46] An exception occurred during SmartAPI login: object of type 'NoneType' has no len()
+    Traceback (most recent call last):
+      File "C:\Users\Swapnil\indian_stock_scanner\backend\services\smartapi_service.py", line 27, in login
+        totp = pyotp.TOTP(settings.TOTP_SECRET).now()
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\totp.py", line 64, in now
+        return self.generate_otp(self.timecode(datetime.datetime.now()))
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\otp.py", line 35, in generate_otp
+        hasher = hmac.new(self.byte_secret(), self.int_to_bytestring(input), self.digest)
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\otp.py", line 49, in byte_secret
+        missing_padding = len(secret) % 8
+    TypeError: object of type 'NoneType' has no len()
+[E 250829 01:21:36 main:115] Failed to log into SmartAPI.
+[E 250829 01:25:35 smartapi_service:46] An exception occurred during SmartAPI login: object of type 'NoneType' has no len()
+    Traceback (most recent call last):
+      File "C:\Users\Swapnil\indian_stock_scanner\backend\services\smartapi_service.py", line 27, in login
+        totp = pyotp.TOTP(settings.TOTP_SECRET).now()
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\totp.py", line 64, in now
+        return self.generate_otp(self.timecode(datetime.datetime.now()))
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\otp.py", line 35, in generate_otp
+        hasher = hmac.new(self.byte_secret(), self.int_to_bytestring(input), self.digest)
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\otp.py", line 49, in byte_secret
+        missing_padding = len(secret) % 8
+    TypeError: object of type 'NoneType' has no len()
+[E 250829 01:25:35 main:115] Failed to log into SmartAPI.
+[E 250829 01:28:14 smartapi_service:46] An exception occurred during SmartAPI login: object of type 'NoneType' has no len()
+    Traceback (most recent call last):
+      File "C:\Users\Swapnil\indian_stock_scanner\backend\services\smartapi_service.py", line 27, in login
+        totp = pyotp.TOTP(settings.TOTP_SECRET).now()
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\totp.py", line 64, in now
+        return self.generate_otp(self.timecode(datetime.datetime.now()))
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\otp.py", line 35, in generate_otp
+        hasher = hmac.new(self.byte_secret(), self.int_to_bytestring(input), self.digest)
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\otp.py", line 49, in byte_secret
+        missing_padding = len(secret) % 8
+    TypeError: object of type 'NoneType' has no len()
+[E 250829 01:28:14 main:115] Failed to log into SmartAPI.
+[E 250829 01:32:50 smartapi_service:46] An exception occurred during SmartAPI login: object of type 'NoneType' has no len()
+    Traceback (most recent call last):
+      File "C:\Users\Swapnil\indian_stock_scanner\backend\services\smartapi_service.py", line 27, in login
+        totp = pyotp.TOTP(settings.TOTP_SECRET).now()
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\totp.py", line 64, in now
+        return self.generate_otp(self.timecode(datetime.datetime.now()))
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\otp.py", line 35, in generate_otp
+        hasher = hmac.new(self.byte_secret(), self.int_to_bytestring(input), self.digest)
+      File "C:\Users\Swapnil\indian_stock_scanner\venv\lib\site-packages\pyotp\otp.py", line 49, in byte_secret
+        missing_padding = len(secret) % 8
+    TypeError: object of type 'NoneType' has no len()
+[E 250829 01:32:50 main:115] Failed to log into SmartAPI.
+[I 250829 01:37:35 websocket_client:62] Connecting to SmartAPI WebSocket...
+[I 250829 01:37:35 websocket_client:16] WebSocket connection opened. Subscribing to instruments...
+[I 250829 01:37:35 websocket_client:29] Subscribed to 102 tokens in Quote mode.
+[I 250829 01:58:13 websocket_client:62] Connecting to SmartAPI WebSocket...
+[I 250829 01:58:13 websocket_client:16] WebSocket connection opened. Subscribing to instruments...
+[I 250829 01:58:13 websocket_client:29] Subscribed to 102 tokens in Quote mode.
+[W 250829 01:59:59 smartWebSocketV2:318] Attempting to resubscribe/reconnect (Attempt 1)...
+[I 250829 02:00:09 websocket_client:16] WebSocket connection opened. Subscribing to instruments...
+[I 250829 02:00:09 websocket_client:29] Subscribed to 102 tokens in Quote mode.
+[I 250829 02:07:44 websocket_client:62] Connecting to SmartAPI WebSocket...
+[I 250829 02:07:44 websocket_client:16] WebSocket connection opened. Subscribing to instruments...
+[I 250829 02:07:44 websocket_client:29] Subscribed to 102 tokens in Quote mode.
+[W 250829 09:46:12 smartWebSocketV2:318] Attempting to resubscribe/reconnect (Attempt 1)...
+[I 250829 09:46:22 websocket_client:16] WebSocket connection opened. Subscribing to instruments...
+[I 250829 09:46:22 websocket_client:29] Subscribed to 102 tokens in Quote mode.
+[E 250829 21:55:48 premarket_scanner:36] Error fetching historical data for token 11573: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:24 premarket_scanner:36] Error fetching historical data for token 14843: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:24 premarket_scanner:36] Error fetching historical data for token 14894: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:24 premarket_scanner:36] Error fetching historical data for token 15032: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:24 premarket_scanner:36] Error fetching historical data for token 15039: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:24 premarket_scanner:36] Error fetching historical data for token 15058: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:24 premarket_scanner:36] Error fetching historical data for token 15271: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:24 premarket_scanner:36] Error fetching historical data for token 1570: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:24 premarket_scanner:36] Error fetching historical data for token 15377: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:24 premarket_scanner:36] Error fetching historical data for token 1581: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:25 premarket_scanner:36] Error fetching historical data for token 16705: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:25 premarket_scanner:36] Error fetching historical data for token 16900: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:25 premarket_scanner:36] Error fetching historical data for token 16943: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:29 premarket_scanner:36] Error fetching historical data for token 17424: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:34 premarket_scanner:36] Error fetching historical data for token 18581: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:34 premarket_scanner:36] Error fetching historical data for token 18721: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:51 premarket_scanner:36] Error fetching historical data for token 15124: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:51 premarket_scanner:36] Error fetching historical data for token 15199: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:51 premarket_scanner:36] Error fetching historical data for token 15313: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:51 premarket_scanner:36] Error fetching historical data for token 15355: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:51 premarket_scanner:36] Error fetching historical data for token 15419: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:57:51 premarket_scanner:36] Error fetching historical data for token 16657: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:34 premarket_scanner:36] Error fetching historical data for token 23647: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:34 premarket_scanner:36] Error fetching historical data for token 23740: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:34 premarket_scanner:36] Error fetching historical data for token 23799: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:34 premarket_scanner:36] Error fetching historical data for token 2397: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:34 premarket_scanner:36] Error fetching historical data for token 24014: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:34 premarket_scanner:36] Error fetching historical data for token 24077: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:39 premarket_scanner:36] Error fetching historical data for token 10557: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:39 premarket_scanner:36] Error fetching historical data for token 24814: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:39 premarket_scanner:36] Error fetching historical data for token 10588: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:39 premarket_scanner:36] Error fetching historical data for token 10604: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:39 premarket_scanner:36] Error fetching historical data for token 10723: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:39 premarket_scanner:36] Error fetching historical data for token 10825: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:58:43 premarket_scanner:36] Error fetching historical data for token 1164: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:11 premarket_scanner:36] Error fetching historical data for token 11779: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:11 premarket_scanner:36] Error fetching historical data for token 25634: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:11 premarket_scanner:36] Error fetching historical data for token 1200: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:29 premarket_scanner:36] Error fetching historical data for token 10578: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:29 premarket_scanner:36] Error fetching historical data for token 3066: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:29 premarket_scanner:36] Error fetching historical data for token 31138: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:29 premarket_scanner:36] Error fetching historical data for token 10945: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:29 premarket_scanner:36] Error fetching historical data for token 11006: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:30 premarket_scanner:36] Error fetching historical data for token 3220: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:30 premarket_scanner:36] Error fetching historical data for token 3316: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 21:59:58 premarket_scanner:36] Error fetching historical data for token 14106: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:05 premarket_scanner:36] Error fetching historical data for token 14871: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:05 premarket_scanner:36] Error fetching historical data for token 14966: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:05 premarket_scanner:36] Error fetching historical data for token 14982: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:05 premarket_scanner:36] Error fetching historical data for token 1507: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:05 premarket_scanner:36] Error fetching historical data for token 757443: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:05 premarket_scanner:36] Error fetching historical data for token 15180: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:05 premarket_scanner:36] Error fetching historical data for token 757515: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:19 premarket_scanner:36] Error fetching historical data for token 17635: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:19 premarket_scanner:36] Error fetching historical data for token 17702: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:21 premarket_scanner:36] Error fetching historical data for token 13218: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:21 premarket_scanner:36] Error fetching historical data for token 13276: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:21 premarket_scanner:36] Error fetching historical data for token 13305: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:21 premarket_scanner:36] Error fetching historical data for token 1333: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:29 premarket_scanner:36] Error fetching historical data for token 23175: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:29 premarket_scanner:36] Error fetching historical data for token 23181: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:29 premarket_scanner:36] Error fetching historical data for token 1485: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:29 premarket_scanner:36] Error fetching historical data for token 14853: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:29 premarket_scanner:36] Error fetching historical data for token 14908: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:29 premarket_scanner:36] Error fetching historical data for token 14922: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:29 premarket_scanner:36] Error fetching historical data for token 14977: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:29 premarket_scanner:36] Error fetching historical data for token 14992: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:39 premarket_scanner:36] Error fetching historical data for token 24870: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:39 premarket_scanner:36] Error fetching historical data for token 25258: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:39 premarket_scanner:36] Error fetching historical data for token 25328: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:58 premarket_scanner:36] Error fetching historical data for token 2048: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:58 premarket_scanner:36] Error fetching historical data for token 20481: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:58 premarket_scanner:36] Error fetching historical data for token 3002: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:58 premarket_scanner:36] Error fetching historical data for token 18086: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:00:58 premarket_scanner:36] Error fetching historical data for token 18096: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:01:08 premarket_scanner:36] Error fetching historical data for token 3579: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:01:14 premarket_scanner:36] Error fetching historical data for token 20072: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:01:20 premarket_scanner:36] Error fetching historical data for token 13310: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:01:20 premarket_scanner:36] Error fetching historical data for token 13359: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:02:12 premarket_scanner:36] Error fetching historical data for token 27353: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:02:44 premarket_scanner:36] Error fetching historical data for token 4040: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:02:52 premarket_scanner:36] Error fetching historical data for token 1476: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:02:52 premarket_scanner:36] Error fetching historical data for token 14751: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:02:52 premarket_scanner:36] Error fetching historical data for token 1480: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:02:52 premarket_scanner:36] Error fetching historical data for token 14774: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:02:53 premarket_scanner:36] Error fetching historical data for token 14938: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:02:53 premarket_scanner:36] Error fetching historical data for token 15068: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:03:34 premarket_scanner:36] Error fetching historical data for token 3088: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:03:42 premarket_scanner:36] Error fetching historical data for token 10074: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:03:42 premarket_scanner:36] Error fetching historical data for token 10159: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:03:58 premarket_scanner:36] Error fetching historical data for token 13091: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:03:58 premarket_scanner:36] Error fetching historical data for token 756871: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:03:58 premarket_scanner:36] Error fetching historical data for token 757049: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:03:58 premarket_scanner:36] Error fetching historical data for token 13251: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:04 premarket_scanner:36] Error fetching historical data for token 759291: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:04 premarket_scanner:36] Error fetching historical data for token 14435: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:04 premarket_scanner:36] Error fetching historical data for token 7835: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:04 premarket_scanner:36] Error fetching historical data for token 14490: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:04 premarket_scanner:36] Error fetching historical data for token 7886: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:04 premarket_scanner:36] Error fetching historical data for token 14523: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:04 premarket_scanner:36] Error fetching historical data for token 14582: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:04 premarket_scanner:36] Error fetching historical data for token 79: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:07 premarket_scanner:36] Error fetching historical data for token 14838: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:07 premarket_scanner:36] Error fetching historical data for token 14858: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:07 premarket_scanner:36] Error fetching historical data for token 14900: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:07 premarket_scanner:36] Error fetching historical data for token 14947: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:07 premarket_scanner:36] Error fetching historical data for token 8591: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:07 premarket_scanner:36] Error fetching historical data for token 14952: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:07 premarket_scanner:36] Error fetching historical data for token 15007: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:07 premarket_scanner:36] Error fetching historical data for token 15067: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:07 premarket_scanner:36] Error fetching historical data for token 8696: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:13 premarket_scanner:36] Error fetching historical data for token 166: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:28 premarket_scanner:36] Error fetching historical data for token 20224: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:28 premarket_scanner:36] Error fetching historical data for token 758115: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:29 premarket_scanner:36] Error fetching historical data for token 758563: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:29 premarket_scanner:36] Error fetching historical data for token 758572: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:29 premarket_scanner:36] Error fetching historical data for token 2085: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:40 premarket_scanner:36] Error fetching historical data for token 23447: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:40 premarket_scanner:36] Error fetching historical data for token 23480: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:40 premarket_scanner:36] Error fetching historical data for token 23804: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:42 premarket_scanner:36] Error fetching historical data for token 2472: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:42 premarket_scanner:36] Error fetching historical data for token 24851: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:54 premarket_scanner:36] Error fetching historical data for token 24461: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:54 premarket_scanner:36] Error fetching historical data for token 24715: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:54 premarket_scanner:36] Error fetching historical data for token 24777: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:54 premarket_scanner:36] Error fetching historical data for token 25017: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:54 premarket_scanner:36] Error fetching historical data for token 25262: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:54 premarket_scanner:36] Error fetching historical data for token 25270: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:04:56 premarket_scanner:36] Error fetching historical data for token 20831: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:00 premarket_scanner:36] Error fetching historical data for token 758680: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:00 premarket_scanner:36] Error fetching historical data for token 759103: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:01 premarket_scanner:36] Error fetching historical data for token 7627: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:01 premarket_scanner:36] Error fetching historical data for token 7679: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:01 premarket_scanner:36] Error fetching historical data for token 22521: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:01 premarket_scanner:36] Error fetching historical data for token 7936: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:01 premarket_scanner:36] Error fetching historical data for token 7942: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:01 premarket_scanner:36] Error fetching historical data for token 805: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:01 premarket_scanner:36] Error fetching historical data for token 2294: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:01 premarket_scanner:36] Error fetching historical data for token 8119: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:19 premarket_scanner:36] Error fetching historical data for token 7929: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:19 premarket_scanner:36] Error fetching historical data for token 8342: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:19 premarket_scanner:36] Error fetching historical data for token 29758: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:39 premarket_scanner:36] Error fetching historical data for token 25780: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:39 premarket_scanner:36] Error fetching historical data for token 2643: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:39 premarket_scanner:36] Error fetching historical data for token 2649: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:39 premarket_scanner:36] Error fetching historical data for token 27008: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:39 premarket_scanner:36] Error fetching historical data for token 27095: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:55 premarket_scanner:36] Error fetching historical data for token 5938: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:55 premarket_scanner:36] Error fetching historical data for token 6218: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:05:55 premarket_scanner:36] Error fetching historical data for token 6262: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:00 premarket_scanner:36] Error fetching historical data for token 2610: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:00 premarket_scanner:36] Error fetching historical data for token 2636: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:00 premarket_scanner:36] Error fetching historical data for token 270: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:00 premarket_scanner:36] Error fetching historical data for token 27067: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:00 premarket_scanner:36] Error fetching historical data for token 27075: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:00 premarket_scanner:36] Error fetching historical data for token 27084: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:23 premarket_scanner:36] Error fetching historical data for token 6973: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:23 premarket_scanner:36] Error fetching historical data for token 7053: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:24 premarket_scanner:36] Error fetching historical data for token 7420: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:24 premarket_scanner:36] Error fetching historical data for token 7422: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:24 premarket_scanner:36] Error fetching historical data for token 7506: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:24 premarket_scanner:36] Error fetching historical data for token 756038: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:28 premarket_scanner:36] Error fetching historical data for token 22463: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:34 premarket_scanner:36] Error fetching historical data for token 25392: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:43 premarket_scanner:36] Error fetching historical data for token 3247: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:43 premarket_scanner:36] Error fetching historical data for token 3252: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:43 premarket_scanner:36] Error fetching historical data for token 338: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:44 premarket_scanner:36] Error fetching historical data for token 3724: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:44 premarket_scanner:36] Error fetching historical data for token 3748: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:06:44 premarket_scanner:36] Error fetching historical data for token 383: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:08 premarket_scanner:36] Error fetching historical data for token 24067: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:38 premarket_scanner:36] Error fetching historical data for token 757669: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:38 premarket_scanner:36] Error fetching historical data for token 757781: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:38 premarket_scanner:36] Error fetching historical data for token 757850: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:38 premarket_scanner:36] Error fetching historical data for token 757814: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:38 premarket_scanner:36] Error fetching historical data for token 757862: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:39 premarket_scanner:36] Error fetching historical data for token 758675: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:39 premarket_scanner:36] Error fetching historical data for token 758863: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:46 premarket_scanner:36] Error fetching historical data for token 758697: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:46 premarket_scanner:36] Error fetching historical data for token 760: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:46 premarket_scanner:36] Error fetching historical data for token 7603: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:46 premarket_scanner:36] Error fetching historical data for token 7780: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:46 premarket_scanner:36] Error fetching historical data for token 8054: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:46 premarket_scanner:36] Error fetching historical data for token 8124: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:46 premarket_scanner:36] Error fetching historical data for token 8146: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:52 premarket_scanner:36] Error fetching historical data for token 757946: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:52 premarket_scanner:36] Error fetching historical data for token 758558: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:52 premarket_scanner:36] Error fetching historical data for token 759448: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:53 premarket_scanner:36] Error fetching historical data for token 809: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:07:53 premarket_scanner:36] Error fetching historical data for token 8266: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 758595: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 758705: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 758858: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 772: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 7838: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 7979: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 8077: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 8110: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 8153: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 8163: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 8529: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 8585: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 8825: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 8828: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:08:01 premarket_scanner:36] Error fetching historical data for token 9039: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'
+[E 250829 22:39:57 premarket_scanner:105] Failed to retrieve data for MOQUALITY-EQ on second attempt. Skipping permanently.
+[E 250829 22:39:58 premarket_scanner:105] Failed to retrieve data for HDFCVALUE-EQ on second attempt. Skipping permanently.
+[E 250829 22:39:58 premarket_scanner:105] Failed to retrieve data for LICNETFN50-EQ on second attempt. Skipping permanently.
+[E 250829 22:39:59 premarket_scanner:105] Failed to retrieve data for LICNETFSEN-EQ on second attempt. Skipping permanently.
+[E 250829 22:39:59 premarket_scanner:105] Failed to retrieve data for HDFCSENSEX-EQ on second attempt. Skipping permanently.
+[E 250829 22:39:59 premarket_scanner:105] Failed to retrieve data for NIFTYBEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:00 premarket_scanner:105] Failed to retrieve data for 11NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:00 premarket_scanner:105] Failed to retrieve data for QUAL30IETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:01 premarket_scanner:105] Failed to retrieve data for IDFNIFTYET-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:01 premarket_scanner:105] Failed to retrieve data for LIQUIDSBI-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:01 premarket_scanner:105] Failed to retrieve data for NV20-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:06 premarket_scanner:105] Failed to retrieve data for G1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:06 premarket_scanner:105] Failed to retrieve data for 101NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:07 premarket_scanner:105] Failed to retrieve data for 141NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:07 premarket_scanner:105] Failed to retrieve data for ITC-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:08 premarket_scanner:105] Failed to retrieve data for SETF10GILT-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:08 premarket_scanner:105] Failed to retrieve data for IVZINGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:08 premarket_scanner:105] Failed to retrieve data for 011NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:09 premarket_scanner:105] Failed to retrieve data for 121NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:09 premarket_scanner:105] Failed to retrieve data for EBBETF0433-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:09 premarket_scanner:105] Failed to retrieve data for GOLDETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:10 premarket_scanner:105] Failed to retrieve data for HINDNATGLS-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:10 premarket_scanner:105] Failed to retrieve data for NIFTYBETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:11 premarket_scanner:105] Failed to retrieve data for ALPL30IETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:11 premarket_scanner:105] Failed to retrieve data for 171NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:11 premarket_scanner:105] Failed to retrieve data for UTISENSETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:12 premarket_scanner:105] Failed to retrieve data for ONGC-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:12 premarket_scanner:105] Failed to retrieve data for BANKBEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:13 premarket_scanner:105] Failed to retrieve data for UTINIFTETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:13 premarket_scanner:105] Failed to retrieve data for GROWWLIQID-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:13 premarket_scanner:105] Failed to retrieve data for ESG-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:14 premarket_scanner:105] Failed to retrieve data for EQUAL200-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:14 premarket_scanner:105] Failed to retrieve data for CASHIETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:14 premarket_scanner:105] Failed to retrieve data for LIQUIDBEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:15 premarket_scanner:105] Failed to retrieve data for GILT5YBEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:15 premarket_scanner:105] Failed to retrieve data for HDFCNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:16 premarket_scanner:105] Failed to retrieve data for LIQUIDIETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:16 premarket_scanner:105] Failed to retrieve data for LICNETFGSC-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:16 premarket_scanner:105] Failed to retrieve data for BBETF0432-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:17 premarket_scanner:105] Failed to retrieve data for 061NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:17 premarket_scanner:105] Failed to retrieve data for 091NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:17 premarket_scanner:105] Failed to retrieve data for LOWVOL-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:18 premarket_scanner:105] Failed to retrieve data for MOGSEC-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:18 premarket_scanner:105] Failed to retrieve data for GOLDETFADD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:19 premarket_scanner:105] Failed to retrieve data for QNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:19 premarket_scanner:105] Failed to retrieve data for LIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:19 premarket_scanner:105] Failed to retrieve data for GSEC10IETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:20 premarket_scanner:105] Failed to retrieve data for COMMOIETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:20 premarket_scanner:105] Failed to retrieve data for HDFCBANK-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:20 premarket_scanner:105] Failed to retrieve data for LIQUID1-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:21 premarket_scanner:105] Failed to retrieve data for NIF10GETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:21 premarket_scanner:105] Failed to retrieve data for ABSLLIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:22 premarket_scanner:105] Failed to retrieve data for AXSENSEX-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:22 premarket_scanner:105] Failed to retrieve data for 051NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:22 premarket_scanner:105] Failed to retrieve data for 151NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:23 premarket_scanner:105] Failed to retrieve data for BBNPNBETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:23 premarket_scanner:105] Failed to retrieve data for IVZINNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:24 premarket_scanner:105] Failed to retrieve data for PVTBANKADD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:24 premarket_scanner:105] Failed to retrieve data for SENSEXADD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:24 premarket_scanner:105] Failed to retrieve data for EBANKNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:25 premarket_scanner:105] Failed to retrieve data for NIF100BEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:25 premarket_scanner:105] Failed to retrieve data for UNIONGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:26 premarket_scanner:105] Failed to retrieve data for SDL26BEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:26 premarket_scanner:105] Failed to retrieve data for NIFMID150-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:26 premarket_scanner:105] Failed to retrieve data for SENSEXETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:27 premarket_scanner:105] Failed to retrieve data for EGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:27 premarket_scanner:105] Failed to retrieve data for JCHAC-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:27 premarket_scanner:105] Failed to retrieve data for INFRABEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:28 premarket_scanner:105] Failed to retrieve data for N1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:28 premarket_scanner:105] Failed to retrieve data for 161NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:29 premarket_scanner:105] Failed to retrieve data for AXISBNKETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:29 premarket_scanner:105] Failed to retrieve data for V1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:29 premarket_scanner:105] Failed to retrieve data for AXISBPSETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:30 premarket_scanner:105] Failed to retrieve data for BANKETFADD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:30 premarket_scanner:105] Failed to retrieve data for 041NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:30 premarket_scanner:105] Failed to retrieve data for 021NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:31 premarket_scanner:105] Failed to retrieve data for 111NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:31 premarket_scanner:105] Failed to retrieve data for 131NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:32 premarket_scanner:105] Failed to retrieve data for GSEC10YEAR-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:32 premarket_scanner:105] Failed to retrieve data for SETFNIFBK-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:32 premarket_scanner:105] Failed to retrieve data for BANKETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:33 premarket_scanner:105] Failed to retrieve data for LIQGRWBEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:33 premarket_scanner:105] Failed to retrieve data for AONELIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:34 premarket_scanner:105] Failed to retrieve data for ICICIBANK-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:34 premarket_scanner:105] Failed to retrieve data for NPBET-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:34 premarket_scanner:105] Failed to retrieve data for CHEMBONDCH-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:35 premarket_scanner:105] Failed to retrieve data for SGFIN-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:35 premarket_scanner:105] Failed to retrieve data for BLUESTONE-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:35 premarket_scanner:105] Failed to retrieve data for 031NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:36 premarket_scanner:105] Failed to retrieve data for 071NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:36 premarket_scanner:105] Failed to retrieve data for 081NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:37 premarket_scanner:105] Failed to retrieve data for QGOLDHALF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:37 premarket_scanner:105] Failed to retrieve data for NV20BEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:38 premarket_scanner:105] Failed to retrieve data for LTGILTBEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:38 premarket_scanner:105] Failed to retrieve data for HDFCLIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:39 premarket_scanner:105] Failed to retrieve data for LIQUIDETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:39 premarket_scanner:105] Failed to retrieve data for MOGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:40 premarket_scanner:105] Failed to retrieve data for GROWWPOWER-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:40 premarket_scanner:105] Failed to retrieve data for HEALTHADD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:41 premarket_scanner:105] Failed to retrieve data for 181NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:41 premarket_scanner:105] Failed to retrieve data for CONSUMBEES-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:41 premarket_scanner:105] Failed to retrieve data for LIQUIDSHRI-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:42 premarket_scanner:105] Failed to retrieve data for ABGSEC-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:42 premarket_scanner:105] Failed to retrieve data for VAL30IETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:43 premarket_scanner:105] Failed to retrieve data for ALLTIME-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:43 premarket_scanner:105] Failed to retrieve data for REGAAL-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:43 premarket_scanner:105] Failed to retrieve data for HILINFRA-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:44 premarket_scanner:105] Failed to retrieve data for GROWWNXT50-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:44 premarket_scanner:105] Failed to retrieve data for NIFITETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:44 premarket_scanner:105] Failed to retrieve data for NIF5GETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:45 premarket_scanner:105] Failed to retrieve data for LIQUIDADD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:45 premarket_scanner:105] Failed to retrieve data for GEMAROMA-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:46 premarket_scanner:105] Failed to retrieve data for GSEC5IETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:46 premarket_scanner:105] Failed to retrieve data for LICMFGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:46 premarket_scanner:105] Failed to retrieve data for BANKPSU-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:47 premarket_scanner:105] Failed to retrieve data for SENSEXIETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:47 premarket_scanner:105] Failed to retrieve data for AXISCETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:47 premarket_scanner:105] Failed to retrieve data for EQUAL50ADD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:48 premarket_scanner:105] Failed to retrieve data for SBIETFPB-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:48 premarket_scanner:105] Failed to retrieve data for MON50EQUAL-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:49 premarket_scanner:105] Failed to retrieve data for MONEXT50-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:49 premarket_scanner:105] Failed to retrieve data for LIQUIDPLUS-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:49 premarket_scanner:105] Failed to retrieve data for NIFTYETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:50 premarket_scanner:105] Failed to retrieve data for NIFTY50ADD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:50 premarket_scanner:105] Failed to retrieve data for MOMGF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:51 premarket_scanner:105] Failed to retrieve data for CONSUMIETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:51 premarket_scanner:105] Failed to retrieve data for HEUBACHIND-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:51 premarket_scanner:105] Failed to retrieve data for EBBETF0431-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:52 premarket_scanner:105] Failed to retrieve data for TOP10ADD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:52 premarket_scanner:105] Failed to retrieve data for SBIN-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:52 premarket_scanner:105] Failed to retrieve data for MAFANG-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:53 premarket_scanner:105] Failed to retrieve data for MOINFRA-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:53 premarket_scanner:105] Failed to retrieve data for LIQUIDBETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:54 premarket_scanner:105] Failed to retrieve data for GSEC10ABSL-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:54 premarket_scanner:105] Failed to retrieve data for GROWWGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:54 premarket_scanner:105] Failed to retrieve data for BANARISUG-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:55 premarket_scanner:105] Failed to retrieve data for EQUAL50-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:55 premarket_scanner:105] Failed to retrieve data for MOPSE-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:55 premarket_scanner:105] Failed to retrieve data for EBGNG-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:56 premarket_scanner:105] Failed to retrieve data for LOTUSDEV-EQ on second attempt. Skipping permanently.
+[E 250829 22:40:59 premarket_scanner:105] Failed to retrieve data for EFCIL-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:00 premarket_scanner:105] Failed to retrieve data for LAXMIINDIA-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:00 premarket_scanner:105] Failed to retrieve data for SHANTIGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:00 premarket_scanner:105] Failed to retrieve data for MBEL-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:01 premarket_scanner:105] Failed to retrieve data for BRIGHOTEL-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:01 premarket_scanner:105] Failed to retrieve data for SHREEJISPG-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:02 premarket_scanner:105] Failed to retrieve data for VIKRAMSOLR-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:02 premarket_scanner:105] Failed to retrieve data for AXITA-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:02 premarket_scanner:105] Failed to retrieve data for INDIQUBE-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:03 premarket_scanner:105] Failed to retrieve data for MOSILVER-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:03 premarket_scanner:105] Failed to retrieve data for JSWCEMENT-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:04 premarket_scanner:105] Failed to retrieve data for SBILIQETF-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:04 premarket_scanner:105] Failed to retrieve data for LTGILTCASE-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:04 premarket_scanner:105] Failed to retrieve data for CPPLUS-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:05 premarket_scanner:105] Failed to retrieve data for MEIL-EQ on second attempt. Skipping permanently.
+[E 250829 22:41:05 premarket_scanner:105] Failed to retrieve data for SILVERBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:09 premarket_scanner:104] Failed to retrieve data for MOQUALITY-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:09 premarket_scanner:104] Failed to retrieve data for HDFCVALUE-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:10 premarket_scanner:104] Failed to retrieve data for LICNETFN50-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:10 premarket_scanner:104] Failed to retrieve data for LICNETFSEN-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:10 premarket_scanner:104] Failed to retrieve data for HDFCSENSEX-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:11 premarket_scanner:104] Failed to retrieve data for NIFTYBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:11 premarket_scanner:104] Failed to retrieve data for 11NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:12 premarket_scanner:104] Failed to retrieve data for QUAL30IETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:12 premarket_scanner:104] Failed to retrieve data for IDFNIFTYET-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:12 premarket_scanner:104] Failed to retrieve data for LIQUIDSBI-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:13 premarket_scanner:104] Failed to retrieve data for NV20-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:13 premarket_scanner:104] Failed to retrieve data for G1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:13 premarket_scanner:104] Failed to retrieve data for 101NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:14 premarket_scanner:104] Failed to retrieve data for 141NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:14 premarket_scanner:104] Failed to retrieve data for ITC-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:15 premarket_scanner:104] Failed to retrieve data for SETF10GILT-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:15 premarket_scanner:104] Failed to retrieve data for IVZINGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:15 premarket_scanner:104] Failed to retrieve data for 011NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:16 premarket_scanner:104] Failed to retrieve data for 121NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:16 premarket_scanner:104] Failed to retrieve data for EBBETF0433-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:16 premarket_scanner:104] Failed to retrieve data for GOLDETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:17 premarket_scanner:104] Failed to retrieve data for HINDNATGLS-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:17 premarket_scanner:104] Failed to retrieve data for NIFTYBETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:18 premarket_scanner:104] Failed to retrieve data for ALPL30IETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:18 premarket_scanner:104] Failed to retrieve data for 171NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:18 premarket_scanner:104] Failed to retrieve data for UTISENSETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:19 premarket_scanner:104] Failed to retrieve data for ONGC-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:19 premarket_scanner:104] Failed to retrieve data for BANKBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:20 premarket_scanner:104] Failed to retrieve data for UTINIFTETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:20 premarket_scanner:104] Failed to retrieve data for GROWWLIQID-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:20 premarket_scanner:104] Failed to retrieve data for ESG-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:21 premarket_scanner:104] Failed to retrieve data for EQUAL200-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:21 premarket_scanner:104] Failed to retrieve data for CASHIETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:21 premarket_scanner:104] Failed to retrieve data for LIQUIDBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:22 premarket_scanner:104] Failed to retrieve data for GILT5YBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:22 premarket_scanner:104] Failed to retrieve data for HDFCNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:23 premarket_scanner:104] Failed to retrieve data for LIQUIDIETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:23 premarket_scanner:104] Failed to retrieve data for LICNETFGSC-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:23 premarket_scanner:104] Failed to retrieve data for BBETF0432-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:24 premarket_scanner:104] Failed to retrieve data for 061NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:24 premarket_scanner:104] Failed to retrieve data for 091NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:25 premarket_scanner:104] Failed to retrieve data for LOWVOL-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:25 premarket_scanner:104] Failed to retrieve data for MOGSEC-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:25 premarket_scanner:104] Failed to retrieve data for GOLDETFADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:26 premarket_scanner:104] Failed to retrieve data for QNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:26 premarket_scanner:104] Failed to retrieve data for LIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:26 premarket_scanner:104] Failed to retrieve data for GSEC10IETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:27 premarket_scanner:104] Failed to retrieve data for COMMOIETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:27 premarket_scanner:104] Failed to retrieve data for HDFCBANK-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:28 premarket_scanner:104] Failed to retrieve data for LIQUID1-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:28 premarket_scanner:104] Failed to retrieve data for NIF10GETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:28 premarket_scanner:104] Failed to retrieve data for ABSLLIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:29 premarket_scanner:104] Failed to retrieve data for AXSENSEX-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:29 premarket_scanner:104] Failed to retrieve data for 051NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:30 premarket_scanner:104] Failed to retrieve data for 151NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:30 premarket_scanner:104] Failed to retrieve data for BBNPNBETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:30 premarket_scanner:104] Failed to retrieve data for IVZINNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:31 premarket_scanner:104] Failed to retrieve data for PVTBANKADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:31 premarket_scanner:104] Failed to retrieve data for SENSEXADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:31 premarket_scanner:104] Failed to retrieve data for EBANKNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:32 premarket_scanner:104] Failed to retrieve data for NIF100BEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:32 premarket_scanner:104] Failed to retrieve data for UNIONGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:33 premarket_scanner:104] Failed to retrieve data for SDL26BEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:33 premarket_scanner:104] Failed to retrieve data for NIFMID150-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:33 premarket_scanner:104] Failed to retrieve data for SENSEXETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:34 premarket_scanner:104] Failed to retrieve data for EGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:34 premarket_scanner:104] Failed to retrieve data for JCHAC-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:35 premarket_scanner:104] Failed to retrieve data for INFRABEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:35 premarket_scanner:104] Failed to retrieve data for N1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:35 premarket_scanner:104] Failed to retrieve data for 161NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:36 premarket_scanner:104] Failed to retrieve data for AXISBNKETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:36 premarket_scanner:104] Failed to retrieve data for V1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:36 premarket_scanner:104] Failed to retrieve data for AXISBPSETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:37 premarket_scanner:104] Failed to retrieve data for BANKETFADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:37 premarket_scanner:104] Failed to retrieve data for 041NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:38 premarket_scanner:104] Failed to retrieve data for 021NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:38 premarket_scanner:104] Failed to retrieve data for 111NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:38 premarket_scanner:104] Failed to retrieve data for 131NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:39 premarket_scanner:104] Failed to retrieve data for GSEC10YEAR-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:39 premarket_scanner:104] Failed to retrieve data for SETFNIFBK-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:43 premarket_scanner:104] Failed to retrieve data for BANKETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:43 premarket_scanner:104] Failed to retrieve data for LIQGRWBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:43 premarket_scanner:104] Failed to retrieve data for AONELIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:44 premarket_scanner:104] Failed to retrieve data for ICICIBANK-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:44 premarket_scanner:104] Failed to retrieve data for NPBET-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:45 premarket_scanner:104] Failed to retrieve data for CHEMBONDCH-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:46 premarket_scanner:104] Failed to retrieve data for SGFIN-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:46 premarket_scanner:104] Failed to retrieve data for BLUESTONE-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:47 premarket_scanner:104] Failed to retrieve data for 031NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:47 premarket_scanner:104] Failed to retrieve data for 071NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:47 premarket_scanner:104] Failed to retrieve data for 081NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:48 premarket_scanner:104] Failed to retrieve data for QGOLDHALF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:48 premarket_scanner:104] Failed to retrieve data for NV20BEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:49 premarket_scanner:104] Failed to retrieve data for LTGILTBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:49 premarket_scanner:104] Failed to retrieve data for HDFCLIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:49 premarket_scanner:104] Failed to retrieve data for LIQUIDETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:50 premarket_scanner:104] Failed to retrieve data for MOGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:50 premarket_scanner:104] Failed to retrieve data for GROWWPOWER-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:50 premarket_scanner:104] Failed to retrieve data for HEALTHADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:51 premarket_scanner:104] Failed to retrieve data for 181NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:51 premarket_scanner:104] Failed to retrieve data for CONSUMBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:52 premarket_scanner:104] Failed to retrieve data for LIQUIDSHRI-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:52 premarket_scanner:104] Failed to retrieve data for ABGSEC-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:52 premarket_scanner:104] Failed to retrieve data for VAL30IETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:53 premarket_scanner:104] Failed to retrieve data for ALLTIME-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:53 premarket_scanner:104] Failed to retrieve data for REGAAL-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:54 premarket_scanner:104] Failed to retrieve data for HILINFRA-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:54 premarket_scanner:104] Failed to retrieve data for GROWWNXT50-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:54 premarket_scanner:104] Failed to retrieve data for NIFITETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:55 premarket_scanner:104] Failed to retrieve data for NIF5GETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:55 premarket_scanner:104] Failed to retrieve data for LIQUIDADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:55 premarket_scanner:104] Failed to retrieve data for GEMAROMA-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:56 premarket_scanner:104] Failed to retrieve data for GSEC5IETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:56 premarket_scanner:104] Failed to retrieve data for LICMFGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:57 premarket_scanner:104] Failed to retrieve data for BANKPSU-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:57 premarket_scanner:104] Failed to retrieve data for SENSEXIETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:57 premarket_scanner:104] Failed to retrieve data for AXISCETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:58 premarket_scanner:104] Failed to retrieve data for EQUAL50ADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:58 premarket_scanner:104] Failed to retrieve data for SBIETFPB-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:59 premarket_scanner:104] Failed to retrieve data for MON50EQUAL-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:59 premarket_scanner:104] Failed to retrieve data for MONEXT50-EQ on second attempt. Skipping permanently.
+[E 250829 23:14:59 premarket_scanner:104] Failed to retrieve data for LIQUIDPLUS-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:00 premarket_scanner:104] Failed to retrieve data for NIFTYETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:00 premarket_scanner:104] Failed to retrieve data for NIFTY50ADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:01 premarket_scanner:104] Failed to retrieve data for MOMGF-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:01 premarket_scanner:104] Failed to retrieve data for CONSUMIETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:01 premarket_scanner:104] Failed to retrieve data for HEUBACHIND-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:02 premarket_scanner:104] Failed to retrieve data for EBBETF0431-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:02 premarket_scanner:104] Failed to retrieve data for TOP10ADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:03 premarket_scanner:104] Failed to retrieve data for SBIN-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:03 premarket_scanner:104] Failed to retrieve data for MAFANG-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:03 premarket_scanner:104] Failed to retrieve data for MOINFRA-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:04 premarket_scanner:104] Failed to retrieve data for LIQUIDBETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:04 premarket_scanner:104] Failed to retrieve data for GSEC10ABSL-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:04 premarket_scanner:104] Failed to retrieve data for GROWWGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:05 premarket_scanner:104] Failed to retrieve data for BANARISUG-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:05 premarket_scanner:104] Failed to retrieve data for EQUAL50-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:06 premarket_scanner:104] Failed to retrieve data for MOPSE-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:06 premarket_scanner:104] Failed to retrieve data for EBGNG-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:06 premarket_scanner:104] Failed to retrieve data for LOTUSDEV-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:07 premarket_scanner:104] Failed to retrieve data for EFCIL-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:07 premarket_scanner:104] Failed to retrieve data for LAXMIINDIA-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:08 premarket_scanner:104] Failed to retrieve data for SHANTIGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:08 premarket_scanner:104] Failed to retrieve data for MBEL-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:08 premarket_scanner:104] Failed to retrieve data for BRIGHOTEL-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:09 premarket_scanner:104] Failed to retrieve data for SHREEJISPG-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:09 premarket_scanner:104] Failed to retrieve data for VIKRAMSOLR-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:10 premarket_scanner:104] Failed to retrieve data for AXITA-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:10 premarket_scanner:104] Failed to retrieve data for INDIQUBE-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:10 premarket_scanner:104] Failed to retrieve data for MOSILVER-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:11 premarket_scanner:104] Failed to retrieve data for JSWCEMENT-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:11 premarket_scanner:104] Failed to retrieve data for SBILIQETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:12 premarket_scanner:104] Failed to retrieve data for LTGILTCASE-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:12 premarket_scanner:104] Failed to retrieve data for CPPLUS-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:12 premarket_scanner:104] Failed to retrieve data for MEIL-EQ on second attempt. Skipping permanently.
+[E 250829 23:15:13 premarket_scanner:104] Failed to retrieve data for SILVERBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:54 premarket_scanner:104] Failed to retrieve data for MOQUALITY-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:54 premarket_scanner:104] Failed to retrieve data for HDFCVALUE-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:55 premarket_scanner:104] Failed to retrieve data for LICNETFN50-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:55 premarket_scanner:104] Failed to retrieve data for LICNETFSEN-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:57 premarket_scanner:104] Failed to retrieve data for HDFCSENSEX-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:57 premarket_scanner:104] Failed to retrieve data for NIFTYBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:57 premarket_scanner:104] Failed to retrieve data for 11NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:58 premarket_scanner:104] Failed to retrieve data for QUAL30IETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:58 premarket_scanner:104] Failed to retrieve data for IDFNIFTYET-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:58 premarket_scanner:104] Failed to retrieve data for LIQUIDSBI-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:59 premarket_scanner:104] Failed to retrieve data for NV20-EQ on second attempt. Skipping permanently.
+[E 250829 23:41:59 premarket_scanner:104] Failed to retrieve data for G1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:00 premarket_scanner:104] Failed to retrieve data for 101NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:00 premarket_scanner:104] Failed to retrieve data for 141NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:00 premarket_scanner:104] Failed to retrieve data for ITC-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:01 premarket_scanner:104] Failed to retrieve data for SETF10GILT-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:01 premarket_scanner:104] Failed to retrieve data for IVZINGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:01 premarket_scanner:104] Failed to retrieve data for 011NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:02 premarket_scanner:104] Failed to retrieve data for 121NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:02 premarket_scanner:104] Failed to retrieve data for EBBETF0433-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:03 premarket_scanner:104] Failed to retrieve data for GOLDETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:03 premarket_scanner:104] Failed to retrieve data for HINDNATGLS-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:03 premarket_scanner:104] Failed to retrieve data for NIFTYBETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:04 premarket_scanner:104] Failed to retrieve data for ALPL30IETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:04 premarket_scanner:104] Failed to retrieve data for 171NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:04 premarket_scanner:104] Failed to retrieve data for UTISENSETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:05 premarket_scanner:104] Failed to retrieve data for ONGC-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:05 premarket_scanner:104] Failed to retrieve data for BANKBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:06 premarket_scanner:104] Failed to retrieve data for UTINIFTETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:06 premarket_scanner:104] Failed to retrieve data for GROWWLIQID-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:06 premarket_scanner:104] Failed to retrieve data for ESG-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:07 premarket_scanner:104] Failed to retrieve data for EQUAL200-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:07 premarket_scanner:104] Failed to retrieve data for CASHIETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:08 premarket_scanner:104] Failed to retrieve data for LIQUIDBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:08 premarket_scanner:104] Failed to retrieve data for GILT5YBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:08 premarket_scanner:104] Failed to retrieve data for HDFCNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:09 premarket_scanner:104] Failed to retrieve data for LIQUIDIETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:09 premarket_scanner:104] Failed to retrieve data for LICNETFGSC-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:09 premarket_scanner:104] Failed to retrieve data for BBETF0432-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:11 premarket_scanner:104] Failed to retrieve data for 061NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:11 premarket_scanner:104] Failed to retrieve data for 091NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:12 premarket_scanner:104] Failed to retrieve data for LOWVOL-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:12 premarket_scanner:104] Failed to retrieve data for MOGSEC-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:12 premarket_scanner:104] Failed to retrieve data for GOLDETFADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:13 premarket_scanner:104] Failed to retrieve data for QNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:13 premarket_scanner:104] Failed to retrieve data for LIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:14 premarket_scanner:104] Failed to retrieve data for GSEC10IETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:14 premarket_scanner:104] Failed to retrieve data for COMMOIETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:14 premarket_scanner:104] Failed to retrieve data for HDFCBANK-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:15 premarket_scanner:104] Failed to retrieve data for LIQUID1-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:15 premarket_scanner:104] Failed to retrieve data for NIF10GETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:15 premarket_scanner:104] Failed to retrieve data for ABSLLIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:16 premarket_scanner:104] Failed to retrieve data for AXSENSEX-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:16 premarket_scanner:104] Failed to retrieve data for 051NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:17 premarket_scanner:104] Failed to retrieve data for 151NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:17 premarket_scanner:104] Failed to retrieve data for BBNPNBETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:17 premarket_scanner:104] Failed to retrieve data for IVZINNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:18 premarket_scanner:104] Failed to retrieve data for PVTBANKADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:18 premarket_scanner:104] Failed to retrieve data for SENSEXADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:18 premarket_scanner:104] Failed to retrieve data for EBANKNIFTY-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:19 premarket_scanner:104] Failed to retrieve data for NIF100BEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:19 premarket_scanner:104] Failed to retrieve data for UNIONGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:20 premarket_scanner:104] Failed to retrieve data for SDL26BEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:20 premarket_scanner:104] Failed to retrieve data for NIFMID150-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:20 premarket_scanner:104] Failed to retrieve data for SENSEXETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:21 premarket_scanner:104] Failed to retrieve data for EGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:21 premarket_scanner:104] Failed to retrieve data for JCHAC-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:22 premarket_scanner:104] Failed to retrieve data for INFRABEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:22 premarket_scanner:104] Failed to retrieve data for N1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:22 premarket_scanner:104] Failed to retrieve data for 161NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:23 premarket_scanner:104] Failed to retrieve data for AXISBNKETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:23 premarket_scanner:104] Failed to retrieve data for V1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:23 premarket_scanner:104] Failed to retrieve data for AXISBPSETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:24 premarket_scanner:104] Failed to retrieve data for BANKETFADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:24 premarket_scanner:104] Failed to retrieve data for 041NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:25 premarket_scanner:104] Failed to retrieve data for 021NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:25 premarket_scanner:104] Failed to retrieve data for 111NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:25 premarket_scanner:104] Failed to retrieve data for 131NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:26 premarket_scanner:104] Failed to retrieve data for GSEC10YEAR-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:26 premarket_scanner:104] Failed to retrieve data for SETFNIFBK-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:26 premarket_scanner:104] Failed to retrieve data for BANKETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:27 premarket_scanner:104] Failed to retrieve data for LIQGRWBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:27 premarket_scanner:104] Failed to retrieve data for AONELIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:28 premarket_scanner:104] Failed to retrieve data for ICICIBANK-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:28 premarket_scanner:104] Failed to retrieve data for NPBET-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:28 premarket_scanner:104] Failed to retrieve data for CHEMBONDCH-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:29 premarket_scanner:104] Failed to retrieve data for SGFIN-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:29 premarket_scanner:104] Failed to retrieve data for BLUESTONE-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:29 premarket_scanner:104] Failed to retrieve data for 031NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:30 premarket_scanner:104] Failed to retrieve data for 071NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:30 premarket_scanner:104] Failed to retrieve data for 081NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:31 premarket_scanner:104] Failed to retrieve data for QGOLDHALF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:31 premarket_scanner:104] Failed to retrieve data for NV20BEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:31 premarket_scanner:104] Failed to retrieve data for LTGILTBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:32 premarket_scanner:104] Failed to retrieve data for HDFCLIQUID-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:32 premarket_scanner:104] Failed to retrieve data for LIQUIDETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:33 premarket_scanner:104] Failed to retrieve data for MOGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:33 premarket_scanner:104] Failed to retrieve data for GROWWPOWER-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:33 premarket_scanner:104] Failed to retrieve data for HEALTHADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:34 premarket_scanner:104] Failed to retrieve data for 181NSETEST-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:34 premarket_scanner:104] Failed to retrieve data for CONSUMBEES-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:34 premarket_scanner:104] Failed to retrieve data for LIQUIDSHRI-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:35 premarket_scanner:104] Failed to retrieve data for ABGSEC-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:35 premarket_scanner:104] Failed to retrieve data for VAL30IETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:36 premarket_scanner:104] Failed to retrieve data for ALLTIME-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:36 premarket_scanner:104] Failed to retrieve data for REGAAL-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:36 premarket_scanner:104] Failed to retrieve data for HILINFRA-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:37 premarket_scanner:104] Failed to retrieve data for GROWWNXT50-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:37 premarket_scanner:104] Failed to retrieve data for NIFITETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:37 premarket_scanner:104] Failed to retrieve data for NIF5GETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:38 premarket_scanner:104] Failed to retrieve data for LIQUIDADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:38 premarket_scanner:104] Failed to retrieve data for GEMAROMA-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:39 premarket_scanner:104] Failed to retrieve data for GSEC5IETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:39 premarket_scanner:104] Failed to retrieve data for LICMFGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:39 premarket_scanner:104] Failed to retrieve data for BANKPSU-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:43 premarket_scanner:104] Failed to retrieve data for SENSEXIETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:43 premarket_scanner:104] Failed to retrieve data for AXISCETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:44 premarket_scanner:104] Failed to retrieve data for EQUAL50ADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:44 premarket_scanner:104] Failed to retrieve data for SBIETFPB-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:44 premarket_scanner:104] Failed to retrieve data for MON50EQUAL-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:45 premarket_scanner:104] Failed to retrieve data for MONEXT50-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:45 premarket_scanner:104] Failed to retrieve data for LIQUIDPLUS-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:45 premarket_scanner:104] Failed to retrieve data for NIFTYETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:46 premarket_scanner:104] Failed to retrieve data for NIFTY50ADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:46 premarket_scanner:104] Failed to retrieve data for MOMGF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:47 premarket_scanner:104] Failed to retrieve data for CONSUMIETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:47 premarket_scanner:104] Failed to retrieve data for HEUBACHIND-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:47 premarket_scanner:104] Failed to retrieve data for EBBETF0431-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:48 premarket_scanner:104] Failed to retrieve data for TOP10ADD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:48 premarket_scanner:104] Failed to retrieve data for SBIN-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:49 premarket_scanner:104] Failed to retrieve data for MAFANG-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:49 premarket_scanner:104] Failed to retrieve data for MOINFRA-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:49 premarket_scanner:104] Failed to retrieve data for LIQUIDBETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:50 premarket_scanner:104] Failed to retrieve data for GSEC10ABSL-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:50 premarket_scanner:104] Failed to retrieve data for GROWWGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:50 premarket_scanner:104] Failed to retrieve data for BANARISUG-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:51 premarket_scanner:104] Failed to retrieve data for EQUAL50-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:51 premarket_scanner:104] Failed to retrieve data for MOPSE-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:52 premarket_scanner:104] Failed to retrieve data for EBGNG-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:52 premarket_scanner:104] Failed to retrieve data for LOTUSDEV-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:52 premarket_scanner:104] Failed to retrieve data for EFCIL-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:53 premarket_scanner:104] Failed to retrieve data for LAXMIINDIA-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:53 premarket_scanner:104] Failed to retrieve data for SHANTIGOLD-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:53 premarket_scanner:104] Failed to retrieve data for MBEL-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:54 premarket_scanner:104] Failed to retrieve data for BRIGHOTEL-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:54 premarket_scanner:104] Failed to retrieve data for SHREEJISPG-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:55 premarket_scanner:104] Failed to retrieve data for VIKRAMSOLR-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:55 premarket_scanner:104] Failed to retrieve data for AXITA-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:55 premarket_scanner:104] Failed to retrieve data for INDIQUBE-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:56 premarket_scanner:104] Failed to retrieve data for MOSILVER-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:56 premarket_scanner:104] Failed to retrieve data for JSWCEMENT-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:56 premarket_scanner:104] Failed to retrieve data for SBILIQETF-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:57 premarket_scanner:104] Failed to retrieve data for LTGILTCASE-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:57 premarket_scanner:104] Failed to retrieve data for CPPLUS-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:58 premarket_scanner:104] Failed to retrieve data for MEIL-EQ on second attempt. Skipping permanently.
+[E 250829 23:42:58 premarket_scanner:104] Failed to retrieve data for SILVERBEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:01:06 premarket_scanner:39] An exception occurred for 14732: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:01:26 premarket_scanner:39] An exception occurred for 255: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:05:32 premarket_scanner:39] An exception occurred for 9553: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:05:50 premarket_scanner:39] An exception occurred for 19646: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:06:14 premarket_scanner:39] An exception occurred for 23804: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:06:42 premarket_scanner:39] An exception occurred for 758448: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:08:13 premarket_scanner:39] An exception occurred for 5407: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:08:42 premarket_scanner:39] An exception occurred for 25398: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:08:44 premarket_scanner:39] An exception occurred for 25503: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:08:46 premarket_scanner:39] An exception occurred for 25503: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:08:51 premarket_scanner:39] An exception occurred for 25626: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:08:53 premarket_scanner:39] An exception occurred for 25690: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:08:56 premarket_scanner:39] An exception occurred for 25690: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:10:17 premarket_scanner:39] An exception occurred for 9874: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:10:30 premarket_scanner:39] An exception occurred for 759448: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:10:43 premarket_scanner:39] An exception occurred for 758496: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:10:47 premarket_scanner:39] An exception occurred for 758858: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:11:00 premarket_scanner:39] An exception occurred for 919: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:11:05 premarket_scanner:104] Failed to retrieve data for MOQUALITY-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:06 premarket_scanner:104] Failed to retrieve data for HDFCVALUE-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:06 premarket_scanner:104] Failed to retrieve data for LICNETFN50-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:07 premarket_scanner:104] Failed to retrieve data for LICNETFSEN-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:07 premarket_scanner:104] Failed to retrieve data for HDFCSENSEX-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:07 premarket_scanner:104] Failed to retrieve data for NIFTYBEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:08 premarket_scanner:104] Failed to retrieve data for 11NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:08 premarket_scanner:104] Failed to retrieve data for QUAL30IETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:08 premarket_scanner:104] Failed to retrieve data for IDFNIFTYET-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:09 premarket_scanner:104] Failed to retrieve data for LIQUIDSBI-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:09 premarket_scanner:104] Failed to retrieve data for NV20-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:10 premarket_scanner:104] Failed to retrieve data for G1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:10 premarket_scanner:104] Failed to retrieve data for 101NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:10 premarket_scanner:104] Failed to retrieve data for 141NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:11 premarket_scanner:104] Failed to retrieve data for ITC-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:11 premarket_scanner:104] Failed to retrieve data for SETF10GILT-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:12 premarket_scanner:104] Failed to retrieve data for IVZINGOLD-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:12 premarket_scanner:104] Failed to retrieve data for 011NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:12 premarket_scanner:104] Failed to retrieve data for 121NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:13 premarket_scanner:104] Failed to retrieve data for EBBETF0433-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:13 premarket_scanner:39] An exception occurred for 14286: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:11:15 premarket_scanner:104] Failed to retrieve data for GOLDETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:16 premarket_scanner:104] Failed to retrieve data for HINDNATGLS-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:16 premarket_scanner:104] Failed to retrieve data for NIFTYBETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:16 premarket_scanner:104] Failed to retrieve data for ALPL30IETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:17 premarket_scanner:104] Failed to retrieve data for 171NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:17 premarket_scanner:104] Failed to retrieve data for UTISENSETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:17 premarket_scanner:104] Failed to retrieve data for ONGC-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:18 premarket_scanner:104] Failed to retrieve data for BANKBEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:18 premarket_scanner:104] Failed to retrieve data for UTINIFTETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:19 premarket_scanner:104] Failed to retrieve data for GROWWLIQID-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:19 premarket_scanner:104] Failed to retrieve data for ESG-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:19 premarket_scanner:104] Failed to retrieve data for EQUAL200-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:20 premarket_scanner:104] Failed to retrieve data for CASHIETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:20 premarket_scanner:104] Failed to retrieve data for LIQUIDBEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:20 premarket_scanner:104] Failed to retrieve data for GILT5YBEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:21 premarket_scanner:104] Failed to retrieve data for HDFCNIFTY-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:21 premarket_scanner:104] Failed to retrieve data for LIQUIDIETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:22 premarket_scanner:104] Failed to retrieve data for LICNETFGSC-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:22 premarket_scanner:104] Failed to retrieve data for BBETF0432-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:22 premarket_scanner:39] An exception occurred for 14762: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:11:24 premarket_scanner:39] An exception occurred for 14762: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:11:28 premarket_scanner:104] Failed to retrieve data for 061NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:29 premarket_scanner:104] Failed to retrieve data for 091NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:29 premarket_scanner:104] Failed to retrieve data for LOWVOL-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:30 premarket_scanner:104] Failed to retrieve data for MOGSEC-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:30 premarket_scanner:104] Failed to retrieve data for GOLDETFADD-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:30 premarket_scanner:104] Failed to retrieve data for QNIFTY-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:31 premarket_scanner:104] Failed to retrieve data for LIQUID-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:31 premarket_scanner:104] Failed to retrieve data for GSEC10IETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:32 premarket_scanner:104] Failed to retrieve data for COMMOIETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:32 premarket_scanner:104] Failed to retrieve data for HDFCBANK-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:32 premarket_scanner:104] Failed to retrieve data for LIQUID1-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:33 premarket_scanner:104] Failed to retrieve data for NIF10GETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:33 premarket_scanner:104] Failed to retrieve data for ABSLLIQUID-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:33 premarket_scanner:104] Failed to retrieve data for AXSENSEX-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:34 premarket_scanner:104] Failed to retrieve data for 051NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:34 premarket_scanner:104] Failed to retrieve data for 151NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:35 premarket_scanner:104] Failed to retrieve data for BBNPNBETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:35 premarket_scanner:104] Failed to retrieve data for IVZINNIFTY-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:35 premarket_scanner:104] Failed to retrieve data for PVTBANKADD-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:36 premarket_scanner:104] Failed to retrieve data for SENSEXADD-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:36 premarket_scanner:104] Failed to retrieve data for EBANKNIFTY-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:37 premarket_scanner:104] Failed to retrieve data for NIF100BEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:37 premarket_scanner:104] Failed to retrieve data for UNIONGOLD-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:37 premarket_scanner:104] Failed to retrieve data for SDL26BEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:38 premarket_scanner:104] Failed to retrieve data for NIFMID150-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:38 premarket_scanner:104] Failed to retrieve data for SENSEXETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:39 premarket_scanner:104] Failed to retrieve data for EGOLD-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:39 premarket_scanner:104] Failed to retrieve data for JCHAC-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:39 premarket_scanner:104] Failed to retrieve data for INFRABEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:40 premarket_scanner:104] Failed to retrieve data for N1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:40 premarket_scanner:104] Failed to retrieve data for 161NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:41 premarket_scanner:104] Failed to retrieve data for AXISBNKETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:41 premarket_scanner:104] Failed to retrieve data for V1NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:41 premarket_scanner:104] Failed to retrieve data for AXISBPSETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:42 premarket_scanner:39] An exception occurred for 13644: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:11:44 premarket_scanner:104] Failed to retrieve data for BANKETFADD-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:44 premarket_scanner:104] Failed to retrieve data for 041NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:45 premarket_scanner:104] Failed to retrieve data for 021NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:45 premarket_scanner:104] Failed to retrieve data for 111NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:46 premarket_scanner:104] Failed to retrieve data for 131NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:46 premarket_scanner:104] Failed to retrieve data for GSEC10YEAR-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:46 premarket_scanner:104] Failed to retrieve data for SETFNIFBK-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:47 premarket_scanner:104] Failed to retrieve data for BANKETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:47 premarket_scanner:104] Failed to retrieve data for LIQGRWBEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:47 premarket_scanner:104] Failed to retrieve data for AONELIQUID-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:48 premarket_scanner:104] Failed to retrieve data for ICICIBANK-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:48 premarket_scanner:104] Failed to retrieve data for NPBET-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:49 premarket_scanner:104] Failed to retrieve data for CHEMBONDCH-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:49 premarket_scanner:104] Failed to retrieve data for SGFIN-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:49 premarket_scanner:104] Failed to retrieve data for BLUESTONE-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:50 premarket_scanner:104] Failed to retrieve data for 031NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:50 premarket_scanner:104] Failed to retrieve data for 071NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:51 premarket_scanner:104] Failed to retrieve data for 081NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:51 premarket_scanner:104] Failed to retrieve data for QGOLDHALF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:51 premarket_scanner:104] Failed to retrieve data for NV20BEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:52 premarket_scanner:104] Failed to retrieve data for LTGILTBEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:52 premarket_scanner:104] Failed to retrieve data for HDFCLIQUID-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:52 premarket_scanner:104] Failed to retrieve data for LIQUIDETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:53 premarket_scanner:104] Failed to retrieve data for MOGOLD-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:53 premarket_scanner:104] Failed to retrieve data for GROWWPOWER-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:54 premarket_scanner:104] Failed to retrieve data for HEALTHADD-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:54 premarket_scanner:104] Failed to retrieve data for 181NSETEST-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:54 premarket_scanner:104] Failed to retrieve data for CONSUMBEES-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:55 premarket_scanner:104] Failed to retrieve data for LIQUIDSHRI-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:55 premarket_scanner:104] Failed to retrieve data for ABGSEC-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:55 premarket_scanner:104] Failed to retrieve data for VAL30IETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:56 premarket_scanner:104] Failed to retrieve data for ALLTIME-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:56 premarket_scanner:104] Failed to retrieve data for REGAAL-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:57 premarket_scanner:104] Failed to retrieve data for HILINFRA-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:57 premarket_scanner:104] Failed to retrieve data for GROWWNXT50-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:57 premarket_scanner:104] Failed to retrieve data for NIFITETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:58 premarket_scanner:104] Failed to retrieve data for NIF5GETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:58 premarket_scanner:104] Failed to retrieve data for LIQUIDADD-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:58 premarket_scanner:104] Failed to retrieve data for GEMAROMA-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:59 premarket_scanner:104] Failed to retrieve data for GSEC5IETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:11:59 premarket_scanner:104] Failed to retrieve data for LICMFGOLD-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:00 premarket_scanner:104] Failed to retrieve data for BANKPSU-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:00 premarket_scanner:104] Failed to retrieve data for SENSEXIETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:00 premarket_scanner:104] Failed to retrieve data for AXISCETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:01 premarket_scanner:104] Failed to retrieve data for EQUAL50ADD-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:01 premarket_scanner:104] Failed to retrieve data for SBIETFPB-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:02 premarket_scanner:104] Failed to retrieve data for MON50EQUAL-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:02 premarket_scanner:104] Failed to retrieve data for MONEXT50-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:02 premarket_scanner:104] Failed to retrieve data for LIQUIDPLUS-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:03 premarket_scanner:39] An exception occurred for 6353: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:12:05 premarket_scanner:104] Failed to retrieve data for NIFTYETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:05 premarket_scanner:104] Failed to retrieve data for NIFTY50ADD-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:06 premarket_scanner:104] Failed to retrieve data for MOMGF-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:06 premarket_scanner:104] Failed to retrieve data for CONSUMIETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:06 premarket_scanner:104] Failed to retrieve data for HEUBACHIND-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:07 premarket_scanner:104] Failed to retrieve data for EBBETF0431-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:07 premarket_scanner:104] Failed to retrieve data for TOP10ADD-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:07 premarket_scanner:104] Failed to retrieve data for SBIN-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:08 premarket_scanner:104] Failed to retrieve data for MAFANG-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:08 premarket_scanner:104] Failed to retrieve data for MOINFRA-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:09 premarket_scanner:104] Failed to retrieve data for LIQUIDBETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:09 premarket_scanner:104] Failed to retrieve data for GSEC10ABSL-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:09 premarket_scanner:104] Failed to retrieve data for GROWWGOLD-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:10 premarket_scanner:104] Failed to retrieve data for BANARISUG-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:10 premarket_scanner:104] Failed to retrieve data for EQUAL50-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:10 premarket_scanner:104] Failed to retrieve data for MOPSE-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:11 premarket_scanner:104] Failed to retrieve data for EBGNG-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:11 premarket_scanner:104] Failed to retrieve data for LOTUSDEV-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:12 premarket_scanner:104] Failed to retrieve data for EFCIL-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:12 premarket_scanner:39] An exception occurred for 758863: Couldn't parse the JSON response received from the server: b'Access denied because of exceeding access rate'. Retrying...
+[E 250830 00:12:14 premarket_scanner:104] Failed to retrieve data for LAXMIINDIA-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:14 premarket_scanner:104] Failed to retrieve data for SHANTIGOLD-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:15 premarket_scanner:104] Failed to retrieve data for MBEL-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:15 premarket_scanner:104] Failed to retrieve data for BRIGHOTEL-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:16 premarket_scanner:104] Failed to retrieve data for SHREEJISPG-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:16 premarket_scanner:104] Failed to retrieve data for VIKRAMSOLR-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:16 premarket_scanner:104] Failed to retrieve data for AXITA-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:17 premarket_scanner:104] Failed to retrieve data for INDIQUBE-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:17 premarket_scanner:104] Failed to retrieve data for MOSILVER-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:17 premarket_scanner:104] Failed to retrieve data for JSWCEMENT-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:18 premarket_scanner:104] Failed to retrieve data for SBILIQETF-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:18 premarket_scanner:104] Failed to retrieve data for LTGILTCASE-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:19 premarket_scanner:104] Failed to retrieve data for CPPLUS-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:19 premarket_scanner:104] Failed to retrieve data for MEIL-EQ on second attempt. Skipping permanently.
+[E 250830 00:12:19 premarket_scanner:104] Failed to retrieve data for SILVERBEES-EQ on second attempt. Skipping permanently.
