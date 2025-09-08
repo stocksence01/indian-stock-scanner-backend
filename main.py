@@ -18,7 +18,7 @@ from ws_connection.connection_manager import manager
 from core.config import settings
 from services.database_service import database_service
 
-# --- THE KEY FIX IS HERE: Using the modern 'lifespan' manager ---
+# --- This is the new, modern way to handle startup tasks ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # This code runs on startup
@@ -50,6 +50,11 @@ app = FastAPI(
 )
 
 async def broadcast_realtime_scan_results():
+    """
+    This is the REAL broadcaster. It runs in the background, finds the top 5
+    bullish and bearish stocks, saves them to the database, and then sends
+    them to the frontend.
+    """
     while True:
         await asyncio.sleep(5)
         if processing_engine.scan_results or processing_engine.index_data:
@@ -61,6 +66,7 @@ async def broadcast_realtime_scan_results():
             
             bullish_stocks = [s for s in all_results if s.get("bias") == "Bullish" and s.get("score", 0) > 0]
             bearish_stocks = [s for s in all_results if s.get("bias") == "Bearish" and s.get("score", 0) > 0]
+
             bullish_stocks.sort(key=lambda x: x['score'], reverse=True)
             bearish_stocks.sort(key=lambda x: x['score'], reverse=True)
             
@@ -84,15 +90,47 @@ async def broadcast_realtime_scan_results():
             logger.info(f"Broadcasted and saved Top {len(top_bullish)} Bullish and Top {len(top_bearish)} Bearish stocks.")
 
 async def send_mock_scanner_updates():
+    """
+    Sends mock data to the frontend every 5 seconds to simulate live updates.
+    """
     mock_bullish = [{'symbol': 'RELIANCE-EQ', 'bias': 'Bullish'}, {'symbol': 'HDFCBANK-EQ', 'bias': 'Bullish'}]
     mock_bearish = [{'symbol': 'SBIN-EQ', 'bias': 'Bearish'}, {'symbol': 'ICICIBANK-EQ', 'bias': 'Bearish'}]
-    mock_indices = [{"name": "NIFTY 50", "ltp": 23500.50, "change": 150.25, "percent_change": 0.64}, {"name": "BANK NIFTY", "ltp": 51000.75, "change": -200.40, "percent_change": -0.39}]
+    mock_indices = [
+        {"name": "NIFTY 50", "ltp": 23500.50, "change": 150.25, "percent_change": 0.64},
+        {"name": "BANK NIFTY", "ltp": 51000.75, "change": -200.40, "percent_change": -0.39}
+    ]
     
     while True:
         await asyncio.sleep(5)
-        bullish_payload = [{"symbol": s['symbol'], "score": random.randint(80, 150), "price": round(random.uniform(1000, 3000), 2), "token": "mock_" + s['symbol']} for s in mock_bullish]
-        bearish_payload = [{"symbol": s['symbol'], "score": random.randint(80, 150), "price": round(random.uniform(500, 1500), 2), "token": "mock_" + s['symbol']} for s in mock_bearish]
-        update_message = {"type": "full_update", "payload": {"bullish": bullish_payload, "bearish": bearish_payload, "indices": mock_indices}}
+        
+        bullish_payload = []
+        for stock in mock_bullish:
+            stock_with_token = stock.copy()
+            stock_with_token.update({
+                "score": random.randint(80, 150),
+                "price": round(random.uniform(1000, 3000), 2),
+                "token": "mock_token_" + stock['symbol']
+            })
+            bullish_payload.append(stock_with_token)
+
+        bearish_payload = []
+        for stock in mock_bearish:
+            stock_with_token = stock.copy()
+            stock_with_token.update({
+                "score": random.randint(80, 150),
+                "price": round(random.uniform(500, 1500), 2),
+                "token": "mock_token_" + stock['symbol']
+            })
+            bearish_payload.append(stock_with_token)
+
+        update_message = {
+            "type": "full_update",
+            "payload": {
+                "bullish": bullish_payload,
+                "bearish": bearish_payload,
+                "indices": mock_indices
+            }
+        }
         await manager.broadcast(json.dumps(update_message))
         logger.info("Broadcasted MOCK scanner update to frontend.")
 
@@ -110,12 +148,16 @@ def get_stock_details(token: str):
     stock_info = settings.TOKEN_MAP.get(token)
     if not stock_info:
         return {"error": "Stock not found in watchlist"}
+
     df = processing_engine.data_store.get(token)
     orb = processing_engine.opening_ranges.get(token)
+    
     if df is None or len(df) < 2 or orb is None:
         return {"error": "Not enough data available yet for analysis."}
+
     last_row = df.iloc[-1]
     prev_row = df.iloc[-2]
+
     details = {
         "symbol": stock_info.get("symbol"),
         "dailyBias": stock_info.get("bias"),
@@ -133,8 +175,10 @@ def get_stock_details(token: str):
 @app.get("/intraday-history/{token}")
 def get_intraday_history(token: str):
     df = processing_engine.data_store.get(token)
+    
     if df is None or df.empty:
         return {"error": "No intraday data available for this token."}
+
     df_reset = df.reset_index()
     df_reset['time'] = (df_reset['timestamp'].astype(int) / 10**9).astype(int)
     chart_data = df_reset[['time', 'open', 'high', 'low', 'close']].to_dict(orient='records')
@@ -148,8 +192,3 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Indian Stock Scanner API!"}
-
-if __name__ == "__main__":
-    print("Starting server programmatically...")
-    port = int(os.environ.get("PORT", 8001))
-    uvicorn.run(app, host="0.0.0.0", port=port)
