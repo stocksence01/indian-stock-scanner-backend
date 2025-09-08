@@ -111,7 +111,7 @@ async def send_mock_scanner_updates():
 @app.on_event("startup")
 async def startup_event():
     logger.info("Application starting up...")
-    LIVE_DATA_MODE = False # Set to True during market hours
+    LIVE_DATA_MODE = True # Set to True during market hours
 
     if LIVE_DATA_MODE:
         logger.info("Starting in LIVE DATA mode.")
