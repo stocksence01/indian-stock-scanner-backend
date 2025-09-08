@@ -6,6 +6,7 @@ import random
 import uvicorn
 import os
 import pandas as pd
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from logzero import logger
@@ -17,10 +18,35 @@ from ws_connection.connection_manager import manager
 from core.config import settings
 from services.database_service import database_service
 
+# --- This is the new, modern way to handle startup tasks ---
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # This code runs on startup
+    logger.info("Application starting up...")
+    LIVE_DATA_MODE = True # Set to False for mock data
+
+    if LIVE_DATA_MODE:
+        logger.info("Starting in LIVE DATA mode.")
+        if smartapi_service.login():
+            logger.info("Successfully logged into SmartAPI.")
+            asyncio.create_task(processing_engine.start_processing_loop())
+            websocket_client.connect()
+            asyncio.create_task(broadcast_realtime_scan_results())
+        else:
+            logger.error("Failed to log into SmartAPI.")
+    else:
+        logger.info("Starting in MOCK DATA mode.")
+        asyncio.create_task(send_mock_scanner_updates())
+    
+    yield
+    # Code below yield runs on shutdown (if any)
+    logger.info("Application shutting down.")
+
 app = FastAPI(
     title="Indian Stock Scanner API",
     description="Real-time stock scanning and data API for the Indian market.",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan # Assign the new lifespan manager
 )
 
 async def broadcast_realtime_scan_results():
@@ -107,24 +133,6 @@ async def send_mock_scanner_updates():
         }
         await manager.broadcast(json.dumps(update_message))
         logger.info("Broadcasted MOCK scanner update to frontend.")
-
-@app.on_event("startup")
-async def startup_event():
-    logger.info("Application starting up...")
-    LIVE_DATA_MODE = True # Set to True during market hours
-
-    if LIVE_DATA_MODE:
-        logger.info("Starting in LIVE DATA mode.")
-        if smartapi_service.login():
-            logger.info("Successfully logged into SmartAPI.")
-            asyncio.create_task(processing_engine.start_processing_loop())
-            websocket_client.connect()
-            asyncio.create_task(broadcast_realtime_scan_results())
-        else:
-            logger.error("Failed to log into SmartAPI.")
-    else:
-        logger.info("Starting in MOCK DATA mode.")
-        asyncio.create_task(send_mock_scanner_updates())
 
 @app.websocket("/ws/scanner-updates")
 async def websocket_endpoint(websocket: WebSocket):
