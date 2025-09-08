@@ -4,6 +4,7 @@ import asyncio
 import json
 import random
 import uvicorn
+import os
 import pandas as pd
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,9 +24,14 @@ app = FastAPI(
 )
 
 async def broadcast_realtime_scan_results():
+    """
+    This is the REAL broadcaster. It runs in the background, finds the top 5
+    bullish and bearish stocks, saves them to the database, and then sends
+    them to the frontend.
+    """
     while True:
         await asyncio.sleep(5)
-        if processing_engine.scan_results:
+        if processing_engine.scan_results or processing_engine.index_data:
             all_results = []
             for token, result in processing_engine.scan_results.items():
                 result_with_token = result.copy()
@@ -58,6 +64,9 @@ async def broadcast_realtime_scan_results():
             logger.info(f"Broadcasted and saved Top {len(top_bullish)} Bullish and Top {len(top_bearish)} Bearish stocks.")
 
 async def send_mock_scanner_updates():
+    """
+    Sends mock data to the frontend every 5 seconds to simulate live updates.
+    """
     mock_bullish = [{'symbol': 'RELIANCE-EQ', 'bias': 'Bullish'}, {'symbol': 'HDFCBANK-EQ', 'bias': 'Bullish'}]
     mock_bearish = [{'symbol': 'SBIN-EQ', 'bias': 'Bearish'}, {'symbol': 'ICICIBANK-EQ', 'bias': 'Bearish'}]
     mock_indices = [
@@ -102,7 +111,7 @@ async def send_mock_scanner_updates():
 @app.on_event("startup")
 async def startup_event():
     logger.info("Application starting up...")
-    LIVE_DATA_MODE = True # Set to True during market hours
+    LIVE_DATA_MODE = False # Set to True during market hours
 
     if LIVE_DATA_MODE:
         logger.info("Starting in LIVE DATA mode.")
@@ -163,11 +172,8 @@ def get_intraday_history(token: str):
         return {"error": "No intraday data available for this token."}
 
     df_reset = df.reset_index()
-    
     df_reset['time'] = (df_reset['timestamp'].astype(int) / 10**9).astype(int)
-    
     chart_data = df_reset[['time', 'open', 'high', 'low', 'close']].to_dict(orient='records')
-    
     return chart_data
 
 app.add_middleware(
@@ -181,4 +187,5 @@ def read_root():
 
 if __name__ == "__main__":
     print("Starting server programmatically...")
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    port = int(os.environ.get("PORT", 8001))
+    uvicorn.run(app, host="0.0.0.0", port=port)
