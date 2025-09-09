@@ -1,30 +1,150 @@
 {
+  "10793": {
+    "symbol": "SYRMA-EQ",
+    "bias": "Bullish"
+  },
+  "11343": {
+    "symbol": "AFFLE-EQ",
+    "bias": "Bullish"
+  },
   "10999": {
     "symbol": "MARUTI-EQ",
+    "bias": "Bullish"
+  },
+  "11723": {
+    "symbol": "JSWSTEEL-EQ",
+    "bias": "Bullish"
+  },
+  "12092": {
+    "symbol": "KAYNES-EQ",
+    "bias": "Bullish"
+  },
+  "14180": {
+    "symbol": "NSLNISP-EQ",
+    "bias": "Bullish"
+  },
+  "14309": {
+    "symbol": "INDIANB-EQ",
+    "bias": "Bullish"
+  },
+  "14592": {
+    "symbol": "FORTIS-EQ",
+    "bias": "Bullish"
+  },
+  "163": {
+    "symbol": "APOLLOTYRE-EQ",
+    "bias": "Bullish"
+  },
+  "11915": {
+    "symbol": "YESBANK-EQ",
+    "bias": "Bullish"
+  },
+  "1363": {
+    "symbol": "HINDALCO-EQ",
+    "bias": "Bullish"
+  },
+  "14435": {
+    "symbol": "JKTYRE-EQ",
+    "bias": "Bullish"
+  },
+  "18011": {
+    "symbol": "WHIRLPOOL-EQ",
+    "bias": "Bullish"
+  },
+  "2181": {
+    "symbol": "BOSCHLTD-EQ",
+    "bias": "Bullish"
+  },
+  "13637": {
+    "symbol": "JMFINANCIL-EQ",
     "bias": "Bullish"
   },
   "14154": {
     "symbol": "UNOMINDA-EQ",
     "bias": "Bullish"
   },
+  "16669": {
+    "symbol": "BAJAJ-AUTO-EQ",
+    "bias": "Bullish"
+  },
+  "17433": {
+    "symbol": "NETWEB-EQ",
+    "bias": "Bullish"
+  },
+  "19813": {
+    "symbol": "HONASA-EQ",
+    "bias": "Bullish"
+  },
+  "20551": {
+    "symbol": "DOMS-EQ",
+    "bias": "Bullish"
+  },
   "11872": {
     "symbol": "GRANULES-EQ",
     "bias": "Bullish"
   },
-  "694": {
-    "symbol": "CIPLA-EQ",
+  "14366": {
+    "symbol": "IDEA-EQ",
+    "bias": "Bullish"
+  },
+  "14418": {
+    "symbol": "ASTRAL-EQ",
+    "bias": "Bullish"
+  },
+  "17388": {
+    "symbol": "ADANIPOWER-EQ",
+    "bias": "Bullish"
+  },
+  "1814": {
+    "symbol": "KPIL-EQ",
+    "bias": "Bullish"
+  },
+  "2049": {
+    "symbol": "CHENNPETRO-EQ",
+    "bias": "Bullish"
+  },
+  "25977": {
+    "symbol": "AFCONS-EQ",
+    "bias": "Bullish"
+  },
+  "3456": {
+    "symbol": "TATAMOTORS-EQ",
+    "bias": "Bullish"
+  },
+  "5610": {
+    "symbol": "ASTRAZEN-EQ",
+    "bias": "Bullish"
+  },
+  "595": {
+    "symbol": "CARBORUNIV-EQ",
+    "bias": "Bullish"
+  },
+  "25073": {
+    "symbol": "RAYMONDLSL-EQ",
+    "bias": "Bullish"
+  },
+  "3718": {
+    "symbol": "VOLTAS-EQ",
     "bias": "Bullish"
   },
   "2606": {
     "symbol": "LEMONTREE-EQ",
     "bias": "Bullish"
   },
+  "312": {
+    "symbol": "TIINDIA-EQ",
+    "bias": "Bullish"
+  },
   "8546": {
     "symbol": "CHALET-EQ",
     "bias": "Bullish"
   },
-  "6705": {
-    "symbol": "PAYTM-EQ",
+  "9683": {
+    "symbol": "KPITTECH-EQ",
+    "bias": "Bullish"
+  },
+  "6364": {
+    "symbol": "NATIONALUM-EQ",
     "bias": "Bullish"
   },
   "8075": {
@@ -43,152 +163,56 @@
     "symbol": "LTF-EQ",
     "bias": "Bullish"
   },
-  "4421": {
-    "symbol": "CREDITACC-EQ",
+  "2963": {
+    "symbol": "SAIL-EQ",
+    "bias": "Bullish"
+  },
+  "317": {
+    "symbol": "BAJFINANCE-EQ",
+    "bias": "Bullish"
+  },
+  "371": {
+    "symbol": "BATAINDIA-EQ",
+    "bias": "Bullish"
+  },
+  "3761": {
+    "symbol": "RITES-EQ",
+    "bias": "Bullish"
+  },
+  "5097": {
+    "symbol": "ETERNAL-EQ",
+    "bias": "Bullish"
+  },
+  "676": {
+    "symbol": "EXIDEIND-EQ",
     "bias": "Bullish"
   },
   "7145": {
     "symbol": "ANANDRATHI-EQ",
     "bias": "Bullish"
   },
-  "10637": {
-    "symbol": "OLECTRA-EQ",
+  "7406": {
+    "symbol": "GLENMARK-EQ",
     "bias": "Bullish"
   },
-  "18822": {
-    "symbol": "ENDURANCE-EQ",
+  "7929": {
+    "symbol": "ZYDUSLIFE-EQ",
     "bias": "Bullish"
   },
-  "1181": {
-    "symbol": "GODFRYPHLP-EQ",
-    "bias": "Bullish"
-  },
-  "13147": {
-    "symbol": "PVRINOX-EQ",
-    "bias": "Bullish"
-  },
-  "13966": {
-    "symbol": "HBLENGINE-EQ",
-    "bias": "Bullish"
-  },
-  "1348": {
-    "symbol": "HEROMOTOCO-EQ",
-    "bias": "Bullish"
-  },
-  "1901": {
-    "symbol": "CUMMINSIND-EQ",
-    "bias": "Bullish"
-  },
-  "13409": {
-    "symbol": "GPIL-EQ",
-    "bias": "Bullish"
-  },
-  "11966": {
-    "symbol": "BIKAJI-EQ",
-    "bias": "Bullish"
-  },
-  "1394": {
-    "symbol": "HINDUNILVR-EQ",
-    "bias": "Bullish"
-  },
-  "17758": {
-    "symbol": "SARDAEN-EQ",
-    "bias": "Bullish"
-  },
-  "19913": {
-    "symbol": "DMART-EQ",
-    "bias": "Bullish"
-  },
-  "23553": {
-    "symbol": "AIIL-EQ",
-    "bias": "Bullish"
-  },
-  "3506": {
-    "symbol": "TITAN-EQ",
-    "bias": "Bullish"
-  },
-  "547": {
-    "symbol": "BRITANNIA-EQ",
-    "bias": "Bullish"
-  },
-  "9581": {
-    "symbol": "METROPOLIS-EQ",
-    "bias": "Bullish"
-  },
-  "27297": {
-    "symbol": "RTNINDIA-EQ",
-    "bias": "Bullish"
-  },
-  "760": {
-    "symbol": "CGPOWER-EQ",
-    "bias": "Bullish"
-  },
-  "5373": {
-    "symbol": "DEVYANI-EQ",
-    "bias": "Bullish"
-  },
-  "6545": {
-    "symbol": "NYKAA-EQ",
-    "bias": "Bullish"
-  },
-  "910": {
-    "symbol": "EICHERMOT-EQ",
-    "bias": "Bullish"
-  },
-  "4014": {
-    "symbol": "NAVA-EQ",
-    "bias": "Bullish"
-  },
-  "25844": {
-    "symbol": "HYUNDAI-EQ",
-    "bias": "Bullish"
-  },
-  "25907": {
-    "symbol": "WAAREEENER-EQ",
-    "bias": "Bullish"
-  },
-  "1011": {
-    "symbol": "SCHAEFFLER-EQ",
-    "bias": "Bearish"
-  },
-  "10599": {
-    "symbol": "GUJGASLTD-EQ",
-    "bias": "Bearish"
-  },
-  "11253": {
-    "symbol": "WELSPUNLIV-EQ",
-    "bias": "Bearish"
-  },
-  "11351": {
-    "symbol": "PETRONET-EQ",
-    "bias": "Bearish"
-  },
-  "10666": {
-    "symbol": "PNB-EQ",
+  "10940": {
+    "symbol": "DIVISLAB-EQ",
     "bias": "Bearish"
   },
   "10753": {
     "symbol": "UNIONBANK-EQ",
     "bias": "Bearish"
   },
-  "1038": {
-    "symbol": "FINCABLES-EQ",
-    "bias": "Bearish"
-  },
   "11195": {
     "symbol": "INDIGO-EQ",
     "bias": "Bearish"
   },
-  "11571": {
-    "symbol": "PPLPHARMA-EQ",
-    "bias": "Bearish"
-  },
-  "11655": {
-    "symbol": "JBMA-EQ",
-    "bias": "Bearish"
-  },
-  "11821": {
-    "symbol": "WELCORP-EQ",
+  "1174": {
+    "symbol": "GNFC-EQ",
     "bias": "Bearish"
   },
   "12018": {
@@ -199,64 +223,24 @@
     "symbol": "AMBUJACEM-EQ",
     "bias": "Bearish"
   },
-  "13197": {
-    "symbol": "GSPL-EQ",
-    "bias": "Bearish"
-  },
-  "13776": {
-    "symbol": "GESHIP-EQ",
-    "bias": "Bearish"
-  },
   "13786": {
     "symbol": "TORNTPOWER-EQ",
-    "bias": "Bearish"
-  },
-  "15380": {
-    "symbol": "MANKIND-EQ",
     "bias": "Bearish"
   },
   "16713": {
     "symbol": "UBL-EQ",
     "bias": "Bearish"
   },
-  "17939": {
-    "symbol": "HINDCOPPER-EQ",
-    "bias": "Bearish"
-  },
-  "17957": {
-    "symbol": "MMTC-EQ",
-    "bias": "Bearish"
-  },
-  "17971": {
-    "symbol": "SBICARD-EQ",
-    "bias": "Bearish"
-  },
   "18921": {
     "symbol": "VBL-EQ",
-    "bias": "Bearish"
-  },
-  "19731": {
-    "symbol": "GPPL-EQ",
     "bias": "Bearish"
   },
   "19943": {
     "symbol": "DEEPAKNTR-EQ",
     "bias": "Bearish"
   },
-  "20293": {
-    "symbol": "TATATECH-EQ",
-    "bias": "Bearish"
-  },
   "2043": {
     "symbol": "RAMCOCEM-EQ",
-    "bias": "Bearish"
-  },
-  "22": {
-    "symbol": "ACC-EQ",
-    "bias": "Bearish"
-  },
-  "220": {
-    "symbol": "IEX-EQ",
     "bias": "Bearish"
   },
   "11377": {
@@ -271,42 +255,6 @@
     "symbol": "CASTROLIND-EQ",
     "bias": "Bearish"
   },
-  "1336": {
-    "symbol": "HEG-EQ",
-    "bias": "Bearish"
-  },
-  "13332": {
-    "symbol": "SOLARINDS-EQ",
-    "bias": "Bearish"
-  },
-  "14198": {
-    "symbol": "TIMKEN-EQ",
-    "bias": "Bearish"
-  },
-  "14255": {
-    "symbol": "REDINGTON-EQ",
-    "bias": "Bearish"
-  },
-  "14435": {
-    "symbol": "JKTYRE-EQ",
-    "bias": "Bearish"
-  },
-  "14672": {
-    "symbol": "NAVINFLUOR-EQ",
-    "bias": "Bearish"
-  },
-  "15283": {
-    "symbol": "KNRCON-EQ",
-    "bias": "Bearish"
-  },
-  "15355": {
-    "symbol": "RECLTD-EQ",
-    "bias": "Bearish"
-  },
-  "1624": {
-    "symbol": "IOC-EQ",
-    "bias": "Bearish"
-  },
   "17534": {
     "symbol": "MGL-EQ",
     "bias": "Bearish"
@@ -319,32 +267,136 @@
     "symbol": "NUVAMA-EQ",
     "bias": "Bearish"
   },
-  "18743": {
-    "symbol": "SIGNATURE-EQ",
-    "bias": "Bearish"
-  },
   "2088": {
     "symbol": "MAHSEAMLES-EQ",
-    "bias": "Bearish"
-  },
-  "2303": {
-    "symbol": "HAL-EQ",
     "bias": "Bearish"
   },
   "11630": {
     "symbol": "NTPC-EQ",
     "bias": "Bearish"
   },
-  "12489": {
-    "symbol": "SWSOLAR-EQ",
+  "17279": {
+    "symbol": "BLS-EQ",
     "bias": "Bearish"
   },
-  "13061": {
-    "symbol": "360ONE-EQ",
+  "18060": {
+    "symbol": "CONCORDBIO-EQ",
     "bias": "Bearish"
   },
-  "1476": {
-    "symbol": "IDBI-EQ",
+  "1838": {
+    "symbol": "KARURVYSYA-EQ",
+    "bias": "Bearish"
+  },
+  "21770": {
+    "symbol": "ICICIGI-EQ",
+    "bias": "Bearish"
+  },
+  "11840": {
+    "symbol": "NH-EQ",
+    "bias": "Bearish"
+  },
+  "17903": {
+    "symbol": "ABBOTINDIA-EQ",
+    "bias": "Bearish"
+  },
+  "17927": {
+    "symbol": "BAYERCROP-EQ",
+    "bias": "Bearish"
+  },
+  "18652": {
+    "symbol": "ICICIPRULI-EQ",
+    "bias": "Bearish"
+  },
+  "7227": {
+    "symbol": "MAPMYINDIA-EQ",
+    "bias": "Bearish"
+  },
+  "739": {
+    "symbol": "COROMANDEL-EQ",
+    "bias": "Bearish"
+  },
+  "2412": {
+    "symbol": "PEL-EQ",
+    "bias": "Bearish"
+  },
+  "2475": {
+    "symbol": "ONGC-EQ",
+    "bias": "Bearish"
+  },
+  "335": {
+    "symbol": "BALKRISIND-EQ",
+    "bias": "Bearish"
+  },
+  "404": {
+    "symbol": "BERGEPAINT-EQ",
+    "bias": "Bearish"
+  },
+  "24715": {
+    "symbol": "AKUMS-EQ",
+    "bias": "Bearish"
+  },
+  "2705": {
+    "symbol": "PRAJIND-EQ",
+    "bias": "Bearish"
+  },
+  "5258": {
+    "symbol": "INDUSINDBK-EQ",
+    "bias": "Bearish"
+  },
+  "916": {
+    "symbol": "EIDPARRY-EQ",
+    "bias": "Bearish"
+  },
+  "3220": {
+    "symbol": "LODHA-EQ",
+    "bias": "Bearish"
+  },
+  "3417": {
+    "symbol": "HONAUT-EQ",
+    "bias": "Bearish"
+  },
+  "5475": {
+    "symbol": "GRSE-EQ",
+    "bias": "Bearish"
+  },
+  "1023": {
+    "symbol": "FEDERALBNK-EQ",
+    "bias": "Bearish"
+  },
+  "15146": {
+    "symbol": "JYOTHYLAB-EQ",
+    "bias": "Bearish"
+  },
+  "21154": {
+    "symbol": "ERIS-EQ",
+    "bias": "Bearish"
+  },
+  "13086": {
+    "symbol": "AIAENG-EQ",
+    "bias": "Bearish"
+  },
+  "13826": {
+    "symbol": "SOBHA-EQ",
+    "bias": "Bearish"
+  },
+  "16682": {
+    "symbol": "PTCIL-EQ",
+    "bias": "Bearish"
+  },
+  "17400": {
+    "symbol": "NHPC-EQ",
+    "bias": "Bearish"
+  },
+  "1633": {
+    "symbol": "IPCALAB-EQ",
+    "bias": "Bearish"
+  },
+  "17313": {
+    "symbol": "LLOYDSME-EQ",
+    "bias": "Bearish"
+  },
+  "18143": {
+    "symbol": "JIOFIN-EQ",
     "bias": "Bearish"
   }
 }
