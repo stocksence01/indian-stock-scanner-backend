@@ -1,3 +1,5 @@
+# backend/main.py
+
 import asyncio
 import json
 import random
@@ -9,8 +11,6 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from logzero import logger
 
-# --- Assuming your service imports are in a 'services' folder ---
-# If these paths are wrong, please adjust them to your project structure.
 from services.smartapi_service import smartapi_service
 from services.websocket_client import websocket_client
 from services.processing_engine import processing_engine
@@ -18,44 +18,39 @@ from ws_connection.connection_manager import manager
 from core.config import settings
 from services.database_service import database_service
 
-# --- Lifespan Manager (Refactored for Flexibility) ---
+# --- This is the new, modern way to handle startup tasks ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # This code runs on startup
     logger.info("Application starting up...")
     
-    # --- SOLUTION: Use an environment variable to control the mode ---
-    # This is more flexible than a hardcoded boolean.
-    # Defaults to "MOCK" if the variable isn't set.
+    # Use an environment variable to control the mode. Defaults to "MOCK".
     run_mode = os.getenv("RUN_MODE", "MOCK").upper()
 
     if run_mode == "LIVE":
         logger.info("Starting in LIVE DATA mode.")
-        # Your existing live data logic
         if smartapi_service.login():
             logger.info("Successfully logged into SmartAPI.")
             asyncio.create_task(processing_engine.start_processing_loop())
             websocket_client.connect()
             asyncio.create_task(broadcast_realtime_scan_results())
         else:
-            logger.error("Failed to log into SmartAPI. The app may not function correctly.")
+            logger.error("Failed to log into SmartAPI.")
     else:
         logger.info("Starting in MOCK DATA mode.")
-        # Your existing mock data logic
         asyncio.create_task(send_mock_scanner_updates())
     
     yield
-    
+    # Code below yield runs on shutdown (if any)
     logger.info("Application shutting down.")
 
-# --- FastAPI App Initialization ---
 app = FastAPI(
     title="Indian Stock Scanner API",
     description="Real-time stock scanning and data API for the Indian market.",
     version="1.0.0",
-    lifespan=lifespan 
+    lifespan=lifespan # Assign the new lifespan manager
 )
 
-# --- Real-time Broadcaster ---
 async def broadcast_realtime_scan_results():
     """
     This is the REAL broadcaster. It runs in the background, finds the top 5
@@ -66,7 +61,6 @@ async def broadcast_realtime_scan_results():
         await asyncio.sleep(5)
         if processing_engine.scan_results or processing_engine.index_data:
             all_results = []
-            # Use .items() to safely iterate over the dictionary
             for token, result in list(processing_engine.scan_results.items()):
                 result_with_token = result.copy()
                 result_with_token['token'] = token
@@ -97,7 +91,6 @@ async def broadcast_realtime_scan_results():
             await manager.broadcast(json.dumps(update_message))
             logger.info(f"Broadcasted and saved Top {len(top_bullish)} Bullish and Top {len(top_bearish)} Bearish stocks.")
 
-# --- Mock Data Broadcaster ---
 async def send_mock_scanner_updates():
     """
     Sends mock data to the frontend every 5 seconds to simulate live updates.
@@ -143,7 +136,6 @@ async def send_mock_scanner_updates():
         await manager.broadcast(json.dumps(update_message))
         logger.info("Broadcasted MOCK scanner update to frontend.")
 
-# --- WebSocket Endpoint ---
 @app.websocket("/ws/scanner-updates")
 async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
@@ -153,7 +145,6 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect:
         manager.disconnect(websocket)
 
-# --- Other API Endpoints ---
 @app.get("/stock-details/{token}")
 def get_stock_details(token: str):
     stock_info = settings.TOKEN_MAP.get(token)
@@ -179,7 +170,7 @@ def get_stock_details(token: str):
         "macdCrossover": (prev_row.get('macd', 0) < prev_row.get('macd_signal', 0) and 
                           last_row.get('macd', 0) > last_row.get('macd_signal', 0)),
         "bearishMacdCrossover": (prev_row.get('macd', 0) > prev_row.get('macd_signal', 0) and 
-                                   last_row.get('macd', 0) < last_row.get('macd_signal', 0))
+                                 last_row.get('macd', 0) < last_row.get('macd_signal', 0))
     }
     return details
 
@@ -195,13 +186,11 @@ def get_intraday_history(token: str):
     chart_data = df_reset[['time', 'open', 'high', 'low', 'close']].to_dict(orient='records')
     return chart_data
 
-# --- Middleware ---
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"],
 )
 
-# --- Root Endpoint ---
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Indian Stock Scanner API!"}
