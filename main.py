@@ -29,10 +29,15 @@ async def lifespan(app: FastAPI):
         if smartapi_service.login():
             logger.info("Successfully logged into SmartAPI.")
             
+            # --- THIS IS THE FINAL FIX ---
+            # We start the processing loop as a separate, long-running asyncio task.
+            # And we run the WebSocket connection in a separate thread.
+            # This is the most stable pattern for this type of application.
+            asyncio.create_task(processing_engine.start_processing_loop())
+            
             ws_thread = threading.Thread(target=websocket_client.connect, daemon=True)
             ws_thread.start()
             
-            asyncio.create_task(processing_engine.start_processing_loop())
             asyncio.create_task(broadcast_realtime_scan_results())
         else:
             logger.error("Failed to log into SmartAPI.")
@@ -160,7 +165,7 @@ app.add_middleware(
 
 @app.get("/health")
 def health_check():
-    """A simple endpoint for Render's health checker."""
+    """A simple endpoint for Render's health checker to call."""
     return {"status": "ok"}
 
 @app.get("/")
