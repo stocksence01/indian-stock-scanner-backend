@@ -1,5 +1,7 @@
+# backend/requirements.txt
 fastapi
 uvicorn[standard]
+gunicorn
 pandas
 sqlalchemy
 smartapi-python
