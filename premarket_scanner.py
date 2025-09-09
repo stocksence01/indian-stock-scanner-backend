@@ -1,5 +1,3 @@
-# backend/premarket_scanner.py
-
 import json
 import time
 from datetime import datetime, timedelta
@@ -65,7 +63,7 @@ def analyze_stock(df):
     return bull_score, bear_score
 
 def create_daily_watchlist():
-    """Analyzes all stocks using a two-pass system and saves the top 50/50."""
+    """Analyzes all stocks and saves the top 10/10 for the free tier."""
     logger.info("Starting unified Bullish/Bearish pre-market watchlist creation...")
     if not smartapi_service.login():
         logger.error("Could not log in to SmartAPI. Aborting.")
@@ -109,18 +107,18 @@ def create_daily_watchlist():
     bullish_stocks.sort(key=lambda x: x['score'], reverse=True)
     bearish_stocks.sort(key=lambda x: x['score'], reverse=True)
     
-    top_50_bullish = bullish_stocks[:50]
-    top_50_bearish = bearish_stocks[:50]
-    logger.info(f"Taking the top {len(top_50_bullish)} bullish and {len(top_50_bearish)} bearish stocks.")
+    # --- THE KEY CHANGE IS HERE: We are now taking a much smaller, safer number for the free tier ---
+    top_10_bullish = bullish_stocks[:10]
+    top_10_bearish = bearish_stocks[:10]
+    logger.info(f"Taking the top {len(top_10_bullish)} bullish and {len(top_10_bearish)} bearish stocks.")
 
     final_watchlist = {}
-    for stock in top_50_bullish:
+    for stock in top_10_bullish:
         final_watchlist[stock['token']] = {"symbol": stock['symbol'], "bias": "Bullish"}
-    for stock in top_50_bearish:
+    for stock in top_10_bearish:
         final_watchlist[stock['token']] = {"symbol": stock['symbol'], "bias": "Bearish"}
 
     logger.info(f"Final watchlist will contain {len(final_watchlist)} unique stocks.")
-
     output_filename = 'daily_watchlist.json'
     with open(output_filename, 'w') as f:
         json.dump(final_watchlist, f, indent=2)
