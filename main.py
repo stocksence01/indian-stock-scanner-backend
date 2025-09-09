@@ -4,7 +4,7 @@ import random
 import uvicorn
 import os
 import pandas as pd
-import threading  # Import the threading library
+import threading
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,6 +19,7 @@ from services.database_service import database_service
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """Handles application startup and shutdown events."""
     logger.info("Application starting up...")
     
     run_mode = os.getenv("RUN_MODE", "MOCK").upper()
@@ -28,9 +29,6 @@ async def lifespan(app: FastAPI):
         if smartapi_service.login():
             logger.info("Successfully logged into SmartAPI.")
             
-            # --- THIS IS THE FINAL FIX ---
-            # Run the potentially blocking WebSocket connect in a separate thread.
-            # This allows the main server to finish starting up immediately.
             ws_thread = threading.Thread(target=websocket_client.connect, daemon=True)
             ws_thread.start()
             
@@ -53,9 +51,8 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# ... (All of your other functions like broadcast_realtime_scan_results, endpoints, etc. remain the same)
-# The rest of the file is identical to the last full version I provided.
 async def broadcast_realtime_scan_results():
+    """Broadcasts top 5 bullish/bearish stocks and saves them to the database."""
     while True:
         await asyncio.sleep(5)
         if processing_engine.scan_results or processing_engine.index_data:
@@ -90,6 +87,7 @@ async def broadcast_realtime_scan_results():
             logger.info(f"Broadcasted and saved Top {len(top_bullish)} Bullish and Top {len(top_bearish)} Bearish stocks.")
 
 async def send_mock_scanner_updates():
+    """Sends mock data to the frontend every 5 seconds."""
     mock_bullish = [{'symbol': 'RELIANCE-EQ', 'bias': 'Bullish'}, {'symbol': 'HDFCBANK-EQ', 'bias': 'Bullish'}]
     mock_bearish = [{'symbol': 'SBIN-EQ', 'bias': 'Bearish'}, {'symbol': 'ICICIBANK-EQ', 'bias': 'Bearish'}]
     mock_indices = [{"name": "NIFTY 50", "ltp": 23500.50, "change": 150.25, "percent_change": 0.64}, {"name": "BANK NIFTY", "ltp": 51000.75, "change": -200.40, "percent_change": -0.39}]
@@ -104,6 +102,7 @@ async def send_mock_scanner_updates():
 
 @app.websocket("/ws/scanner-updates")
 async def websocket_endpoint(websocket: WebSocket):
+    """Handles the persistent WebSocket connection from the frontend."""
     await manager.connect(websocket)
     try:
         while True:
@@ -113,15 +112,20 @@ async def websocket_endpoint(websocket: WebSocket):
 
 @app.get("/stock-details/{token}")
 def get_stock_details(token: str):
+    """Provides detailed signal breakdown for a single stock."""
     stock_info = settings.TOKEN_MAP.get(token)
     if not stock_info:
         return {"error": "Stock not found in watchlist"}
+
     df = processing_engine.data_store.get(token)
     orb = processing_engine.opening_ranges.get(token)
+    
     if df is None or len(df) < 2 or orb is None:
         return {"error": "Not enough data available yet for analysis."}
+
     last_row = df.iloc[-1]
     prev_row = df.iloc[-2]
+
     details = {
         "symbol": stock_info.get("symbol"),
         "dailyBias": stock_info.get("bias"),
@@ -138,9 +142,12 @@ def get_stock_details(token: str):
 
 @app.get("/intraday-history/{token}")
 def get_intraday_history(token: str):
+    """Provides 1-minute chart data for a single stock."""
     df = processing_engine.data_store.get(token)
+    
     if df is None or df.empty:
         return {"error": "No intraday data available for this token."}
+
     df_reset = df.reset_index()
     df_reset['time'] = (df_reset['timestamp'].astype(int) / 10**9).astype(int)
     chart_data = df_reset[['time', 'open', 'high', 'low', 'close']].to_dict(orient='records')
@@ -151,7 +158,13 @@ app.add_middleware(
     allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"],
 )
 
+@app.get("/health")
+def health_check():
+    """A simple endpoint for Render's health checker."""
+    return {"status": "ok"}
+
 @app.get("/")
 def read_root():
+    """Root endpoint to confirm the server is running."""
     return {"message": "Welcome to the Indian Stock Scanner API!"}
 
