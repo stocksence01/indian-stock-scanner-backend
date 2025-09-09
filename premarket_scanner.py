@@ -107,7 +107,7 @@ def create_daily_watchlist():
     bullish_stocks.sort(key=lambda x: x['score'], reverse=True)
     bearish_stocks.sort(key=lambda x: x['score'], reverse=True)
     
-    # --- THE KEY CHANGE IS HERE: We are now taking a much smaller, safer number for the free tier ---
+    # --- THIS IS THE FINAL OPTIMIZATION ---
     top_10_bullish = bullish_stocks[:10]
     top_10_bearish = bearish_stocks[:10]
     logger.info(f"Taking the top {len(top_10_bullish)} bullish and {len(top_10_bearish)} bearish stocks.")
@@ -127,3 +127,4 @@ def create_daily_watchlist():
 
 if __name__ == "__main__":
     create_daily_watchlist()
+
