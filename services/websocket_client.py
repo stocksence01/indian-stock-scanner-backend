@@ -1,5 +1,3 @@
-# backend/services/websocket_client.py
-
 from SmartApi.smartWebSocketV2 import SmartWebSocketV2
 from logzero import logger
 import asyncio
@@ -16,10 +14,7 @@ class WebSocketClient:
         logger.info("WebSocket connection opened. Subscribing to instruments...")
         correlation_id = "scanner_subscription"
         action = 1
-        
-        # --- THE KEY CHANGE IS HERE ---
-        # Mode 2 provides the full data packet (Quote), which includes bid/ask prices and volume.
-        mode = 2
+        mode = 2 # Quote mode for full data
 
         token_list = [
             {"exchangeType": 1, "tokens": settings.INSTRUMENT_TOKENS_TO_SCAN}
@@ -29,6 +24,13 @@ class WebSocketClient:
         logger.info(f"Subscribed to {len(settings.INSTRUMENT_TOKENS_TO_SCAN)} tokens in Quote mode.")
 
     def on_data(self, wsapp, message):
+        """
+        This function is called for every single piece of data that arrives from the broker.
+        """
+        # --- THIS IS THE CRUCIAL TEST ---
+        # We are adding this log to see if any data is actually arriving.
+        logger.info(f"Tick received: {message}")
+        
         try:
             self.data_queue.put_nowait(message)
         except asyncio.QueueFull:
