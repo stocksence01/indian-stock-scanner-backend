@@ -18,30 +18,45 @@ class ProcessingEngine:
         logger.info("Processing Engine initialized with all features.")
 
     def calculate_final_score(self, token):
-        """This is the final confirmation scoring step."""
+        """This is the final confirmation scoring step with improved robustness."""
         df = self.data_store.get(token)
-        if df is None or len(df) < 30: return 0
+        if df is None or len(df) < 30:
+            return 0
+        
         stock_info = settings.TOKEN_MAP.get(token, {})
         bias = stock_info.get("bias")
+        
         try:
             df['rsi'] = ta.momentum.rsi(df['close'], window=14)
             macd = ta.trend.MACD(df['close'])
             df['macd'] = macd.macd()
             df['macd_signal'] = macd.macd_signal()
-            df['vwap'] = ta.volume.volume_weighted_average_price(
-                high=df['high'], low=df['low'], close=df['close'], volume=df['volume'], window=len(df)
-            )
+            
+            # --- IMPROVEMENT: Correct Daily VWAP calculation ---
+            # This calculation resets at the start of each day.
+            df['typical_price'] = (df['high'] + df['low'] + df['close']) / 3
+            df['tp_volume'] = df['typical_price'] * df['volume']
+            df_daily = df.groupby(df.index.date)
+            df['vwap'] = df_daily['tp_volume'].cumsum() / df_daily['volume'].cumsum()
+
+            # --- IMPROVEMENT: Handle NaN values from indicators ---
+            temp_df = df.dropna()
+            if len(temp_df) < 2: return 0
+
             score = 0
-            last_row = df.iloc[-1]
-            prev_row = df.iloc[-2]
+            last_row = temp_df.iloc[-1]
+            prev_row = temp_df.iloc[-2]
+
             if bias == "Bullish":
                 if last_row['rsi'] > 65: score += 40
                 if prev_row['macd'] < prev_row['macd_signal'] and last_row['macd'] > last_row['macd_signal']: score += 40
                 if last_row['close'] > last_row['vwap']: score += 20
+            
             elif bias == "Bearish":
                 if last_row['rsi'] < 35: score += 40
                 if prev_row['macd'] > prev_row['macd_signal'] and last_row['macd'] < last_row['macd_signal']: score += 40
                 if last_row['close'] < last_row['vwap']: score += 20
+            
             return score
         except Exception as e:
             logger.exception(f"Error in final scoring for token {token}: {e}")
@@ -74,10 +89,7 @@ class ProcessingEngine:
             self.opening_ranges[token] = {'high': open_price_of_day, 'low': open_price_of_day}
 
     async def start_processing_loop(self):
-        """
-        The main loop that processes ticks from the WebSocket queue.
-        This version incorporates the fixes from your analysis.
-        """
+        """The main loop that processes ticks from the WebSocket queue."""
         logger.info("Starting the advanced processing loop...")
         ist = pytz.timezone('Asia/Kolkata')
         opening_range_start = time(9, 15)
@@ -107,14 +119,11 @@ class ProcessingEngine:
                     self.data_store[token].index.name = 'timestamp'
                 df = self.data_store[token]
                 
-                # --- FIX 1: Use replace() for standard datetime objects ---
                 current_bar_timestamp = now_ist.replace(second=0, microsecond=0)
                 
-                # --- FIX 4: Robust last_total_volume calculation ---
                 last_total_volume = df['last_volume'].iloc[-1] if not df.empty else 0
                 minute_volume = volume - last_total_volume
                 
-                # --- FIX 3: More efficient DataFrame updates with .loc ---
                 if current_bar_timestamp not in df.index:
                     df.loc[current_bar_timestamp] = [price, price, price, price, minute_volume, volume]
                 else:
@@ -124,8 +133,11 @@ class ProcessingEngine:
                     df.loc[current_bar_timestamp, 'volume'] += minute_volume
                     df.loc[current_bar_timestamp, 'last_volume'] = volume
 
-                best_bid = tick_data.get('best_5_buy_price_and_quantity', [{}])[0].get('price', 0)
-                best_ask = tick_data.get('best_5_sell_price_and_quantity', [{}])[0].get('price', 0)
+                # --- IMPROVEMENT: Safer best bid/ask access ---
+                bid_info = tick_data.get('best_5_buy_price_and_quantity', [{}])
+                ask_info = tick_data.get('best_5_sell_price_and_quantity', [{}])
+                best_bid = bid_info[0].get('price', 0) if bid_info else 0
+                best_ask = ask_info[0].get('price', 0) if ask_info else 0
                 if not all([best_bid, best_ask]): continue
                 
                 bid, ask = best_bid / 100.0, best_ask / 100.0
@@ -133,6 +145,7 @@ class ProcessingEngine:
                 if spread_percentage > 0.5:
                     if token in self.scan_results: del self.scan_results[token]
                     continue
+                
                 if opening_range_start <= now_time < opening_range_end:
                     if token not in self.opening_ranges:
                         self.opening_ranges[token] = {'high': price, 'low': price}
@@ -140,18 +153,22 @@ class ProcessingEngine:
                         self.opening_ranges[token]['high'] = max(self.opening_ranges[token]['high'], price)
                         self.opening_ranges[token]['low'] = min(self.opening_ranges[token]['low'], price)
                     continue
+
                 if now_time >= opening_range_end:
                     stock_info = settings.TOKEN_MAP.get(token, {})
                     symbol = stock_info.get("symbol")
                     if token not in self.opening_ranges:
                         day_open = open_price_day / 100.0
                         await self.get_opening_range_retroactively(token, symbol, day_open)
+                    
                     orb = self.opening_ranges.get(token)
                     if not orb: continue
+                    
                     bias = stock_info.get("bias")
                     is_breakout = False
                     if bias == "Bullish" and price > orb['high']: is_breakout = True
                     elif bias == "Bearish" and price < orb['low']: is_breakout = True
+                    
                     if is_breakout:
                         final_score = 100 + self.calculate_final_score(token)
                         self.scan_results[token] = {"symbol": symbol, "score": final_score, "price": price, "bias": bias}
