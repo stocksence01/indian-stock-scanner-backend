@@ -27,17 +27,20 @@ class ProcessingEngine:
         bias = stock_info.get("bias")
         
         try:
+            # --- IMPROVEMENT: Correct Daily VWAP calculation ---
+            # This calculation resets at the start of each day.
+            df_today = df[df.index.date == datetime.now(pytz.timezone('Asia/Kolkata')).date()]
+            df_today['vwap'] = ta.volume.volume_weighted_average_price(
+                high=df_today['high'], low=df_today['low'], close=df_today['close'], volume=df_today['volume'], window=len(df_today)
+            )
+
             df['rsi'] = ta.momentum.rsi(df['close'], window=14)
             macd = ta.trend.MACD(df['close'])
             df['macd'] = macd.macd()
             df['macd_signal'] = macd.macd_signal()
             
-            # --- IMPROVEMENT: Correct Daily VWAP calculation ---
-            # This calculation resets at the start of each day.
-            df['typical_price'] = (df['high'] + df['low'] + df['close']) / 3
-            df['tp_volume'] = df['typical_price'] * df['volume']
-            df_daily = df.groupby(df.index.date)
-            df['vwap'] = df_daily['tp_volume'].cumsum() / df_daily['volume'].cumsum()
+            # Merge VWAP back to the main DataFrame
+            df = df.merge(df_today[['vwap']], left_index=True, right_index=True, how='left').ffill()
 
             # --- IMPROVEMENT: Handle NaN values from indicators ---
             temp_df = df.dropna()
@@ -119,6 +122,7 @@ class ProcessingEngine:
                     self.data_store[token].index.name = 'timestamp'
                 df = self.data_store[token]
                 
+                # --- FIX: Use .replace() instead of .floor() ---
                 current_bar_timestamp = now_ist.replace(second=0, microsecond=0)
                 
                 last_total_volume = df['last_volume'].iloc[-1] if not df.empty else 0
