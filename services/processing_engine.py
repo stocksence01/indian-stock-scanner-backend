@@ -2,7 +2,8 @@ import pandas as pd
 import ta
 from logzero import logger
 import asyncio
-from datetime import time, datetime
+from datetime import time, datetime, timedelta
+import pytz
 
 from services.smartapi_service import smartapi_service
 from services.websocket_client import websocket_client
@@ -14,56 +15,20 @@ class ProcessingEngine:
         self.scan_results = {}
         self.opening_ranges = {}
         self.index_data = {}
-        logger.info("Processing Engine initialized with all features.")
+        logger.info("Processing Engine initialized with Retroactive ORB Logic.")
 
-    def calculate_final_score(self, token):
-        """
-        This is the final confirmation step. It's only called AFTER a stock
-        has passed the ORB and liquidity filters.
-        """
-        df = self.data_store.get(token)
-        if df is None or len(df) < 30: return 0
-
-        stock_info = settings.TOKEN_MAP.get(token, {})
-        bias = stock_info.get("bias")
-        
-        try:
-            df['rsi'] = ta.momentum.rsi(df['close'], window=14)
-            macd = ta.trend.MACD(df['close'])
-            df['macd'] = macd.macd()
-            df['macd_signal'] = macd.macd_signal()
-            df['vwap'] = ta.volume.volume_weighted_average_price(
-                high=df['high'], low=df['low'], close=df['close'], volume=df['volume'], window=len(df)
-            )
-            
-            score = 0
-            last_row = df.iloc[-1]
-            prev_row = df.iloc[-2]
-
-            if bias == "Bullish":
-                if last_row['rsi'] > 65: score += 40
-                if prev_row['macd'] < prev_row['macd_signal'] and last_row['macd'] > last_row['macd_signal']: score += 40
-                if last_row['close'] > last_row['vwap']: score += 20
-            
-            elif bias == "Bearish":
-                if last_row['rsi'] < 35: score += 40
-                if prev_row['macd'] > prev_row['macd_signal'] and last_row['macd'] < last_row['macd_signal']: score += 40
-                if last_row['close'] < last_row['vwap']: score += 20
-            
-            return score
-        except Exception:
-            return 0
-
-    async def get_opening_range_retroactively(self, token):
+    async def get_opening_range_retroactively(self, token, symbol):
         """
         If the server starts after 9:30, this function fetches the 1-minute data
         from 9:15 to 9:30 to calculate the opening range.
         """
         try:
-            logger.info(f"Retroactively fetching opening range for token {token}...")
-            now = datetime.now()
-            from_date = now.replace(hour=9, minute=15, second=0, microsecond=0)
-            to_date = now.replace(hour=9, minute=30, second=0, microsecond=0)
+            logger.info(f"Retroactively fetching opening range for {symbol}...")
+            ist = pytz.timezone('Asia/Kolkata')
+            now_ist = datetime.now(ist)
+            
+            from_date = now_ist.replace(hour=9, minute=15, second=0, microsecond=0)
+            to_date = now_ist.replace(hour=9, minute=30, second=0, microsecond=0)
 
             historic_param = {
                 "exchange": "NSE", "symboltoken": token, "interval": "ONE_MINUTE",
@@ -73,27 +38,28 @@ class ProcessingEngine:
             data = smartapi_service.smart_api.getCandleData(historic_param)
             
             if data.get("status") and data.get("data"):
-                df_orb = pd.DataFrame(data["data"])
-                orb_high = df_orb[2].max() / 100.0
-                orb_low = df_orb[3].min() / 100.0
+                # The historical data is a list of lists. Column indices: 0=time, 1=open, 2=high, 3=low, 4=close, 5=volume
+                df_orb = pd.DataFrame(data["data"], columns=['time', 'open', 'high', 'low', 'close', 'volume'])
+                orb_high = df_orb['high'].max() / 100.0
+                orb_low = df_orb['low'].min() / 100.0
                 self.opening_ranges[token] = {'high': orb_high, 'low': orb_low}
-                logger.info(f"Successfully calculated retroactive ORB for {token}: High={orb_high}, Low={orb_low}")
+                logger.info(f"Successfully calculated retroactive ORB for {symbol}: High={orb_high}, Low={orb_low}")
             else:
-                logger.error(f"Could not fetch retroactive ORB for {token}. It will not be scanned.")
+                logger.error(f"Could not fetch retroactive ORB for {symbol}. It will not be scanned today.")
         except Exception as e:
-            logger.exception(f"Exception while fetching retroactive ORB for {token}: {e}")
+            logger.exception(f"Exception while fetching retroactive ORB for {symbol}: {e}")
 
     async def start_processing_loop(self):
         logger.info("Starting the advanced processing loop...")
         
+        ist = pytz.timezone('Asia/Kolkata')
         opening_range_start = time(9, 15)
         opening_range_end = time(9, 30)
 
         while True:
             try:
                 tick_data = await websocket_client.data_queue.get()
-                now_utc = datetime.utcnow()
-                now_time = pd.to_datetime(now_utc).tz_localize('UTC').tz_convert('Asia/Kolkata').time()
+                now_time = datetime.now(ist).time()
 
                 token = tick_data.get('token')
                 ltp = tick_data.get('last_traded_price')
@@ -121,7 +87,7 @@ class ProcessingEngine:
                     self.data_store[token]['last_volume'] = 0
 
                 df = self.data_store[token]
-                current_bar_timestamp = pd.to_datetime(now_utc).floor('T')
+                current_bar_timestamp = datetime.now(ist).floor('T')
                 last_total_volume = df['last_volume'].iloc[-1] if not df.empty else 0
                 minute_volume = volume - last_total_volume
 
@@ -139,9 +105,7 @@ class ProcessingEngine:
                 best_ask = tick_data.get('best_5_sell_price_and_quantity', [{}])[0].get('price', 0)
                 if not all([best_bid, best_ask]): continue
                 
-                bid = best_bid / 100.0
-                ask = best_ask / 100.0
-                
+                bid, ask = best_bid / 100.0, best_ask / 100.0
                 spread_percentage = ((ask - bid) / price) * 100 if price > 0 else 0
                 if spread_percentage > 0.5:
                     if token in self.scan_results: del self.scan_results[token]
@@ -156,27 +120,24 @@ class ProcessingEngine:
                     continue
 
                 if now_time >= opening_range_end:
+                    stock_info = settings.TOKEN_MAP.get(token, {})
+                    symbol = stock_info.get("symbol")
+
                     if token not in self.opening_ranges:
-                        await self.get_opening_range_retroactively(token)
+                        await self.get_opening_range_retroactively(token, symbol)
 
                     orb = self.opening_ranges.get(token)
                     if not orb: continue
 
-                    stock_info = settings.TOKEN_MAP.get(token, {})
                     bias = stock_info.get("bias")
-                    symbol = stock_info.get("symbol")
                     
                     is_breakout = False
                     if bias == "Bullish" and price > orb['high']: is_breakout = True
                     elif bias == "Bearish" and price < orb['low']: is_breakout = True
 
                     if is_breakout:
-                        # --- THE LOGIC IS NOW RESTORED ---
-                        final_score = 100 + self.calculate_final_score(token)
-                        self.scan_results[token] = {
-                            "symbol": symbol, "score": final_score,
-                            "price": price, "bias": bias
-                        }
+                        final_score = 100 # We can re-add confirmation scoring later
+                        self.scan_results[token] = {"symbol": symbol, "score": final_score, "price": price, "bias": bias}
                     else:
                         if token in self.scan_results: del self.scan_results[token]
 
