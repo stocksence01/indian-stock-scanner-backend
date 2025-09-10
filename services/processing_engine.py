@@ -47,11 +47,8 @@ class ProcessingEngine:
             logger.exception(f"Error in final scoring for token {token}: {e}")
             return 0
 
-    async def get_opening_range_retroactively(self, token, symbol, open_price_of_day):
-        """
-        If the server starts after 9:30, this function fetches the 1-minute data
-        from 9:15 to 9:30 to calculate the opening range.
-        """
+    async def get_opening_range_retroactively(self, token, symbol):
+        """If the server starts after 9:30, fetches the 1-minute data to calculate the ORB."""
         try:
             logger.info(f"Retroactively fetching opening range for {symbol}...")
             ist = pytz.timezone('Asia/Kolkata')
@@ -70,12 +67,9 @@ class ProcessingEngine:
                 self.opening_ranges[token] = {'high': orb_high, 'low': orb_low}
                 logger.info(f"Successfully calculated retroactive ORB for {symbol}: High={orb_high}, Low={orb_low}")
             else:
-                logger.error(f"Could not fetch retroactive ORB for {symbol}. Using day's open as a failsafe.")
-                # --- THIS IS THE FAILSAFE ---
-                self.opening_ranges[token] = {'high': open_price_of_day, 'low': open_price_of_day}
+                logger.error(f"Could not fetch retroactive ORB for {symbol}. It will not be scanned today.")
         except Exception as e:
-            logger.exception(f"Exception while fetching retroactive ORB for {symbol}. Using day's open as a failsafe.")
-            self.opening_ranges[token] = {'high': open_price_of_day, 'low': open_price_of_day}
+            logger.exception(f"Exception while fetching retroactive ORB for {symbol}: {e}")
 
     async def start_processing_loop(self):
         logger.info("Starting the advanced processing loop...")
@@ -89,13 +83,13 @@ class ProcessingEngine:
                 now_time = now_ist.time()
                 token = tick_data.get('token')
                 ltp = tick_data.get('last_traded_price')
-                open_price = tick_data.get('open_price_of_the_day') # Corrected key
-                volume = tick_data.get('volume_trade_for_the_day') # Corrected key
-                if not all([token, ltp, open_price, volume]):
+                open_price_day = tick_data.get('open_price_of_the_day')
+                volume = tick_data.get('volume_trade_for_the_day')
+                if not all([token, ltp, open_price_day, volume]):
                     continue
                 price = ltp / 100.0
                 if token in settings.INDEX_TOKENS:
-                    opening = open_price / 100.0
+                    opening = open_price_day / 100.0
                     change = price - opening
                     percent_change = (change / opening) * 100 if opening > 0 else 0
                     self.index_data[token] = {"name": settings.INDEX_TOKENS[token], "ltp": price, "change": change, "percent_change": percent_change}
@@ -105,7 +99,10 @@ class ProcessingEngine:
                     self.data_store[token].index.name = 'timestamp'
                     self.data_store[token]['last_volume'] = 0
                 df = self.data_store[token]
-                current_bar_timestamp = now_ist.floor('T')
+                
+                # --- THIS IS THE FINAL FIX: Convert to a Pandas Timestamp before calling .floor() ---
+                current_bar_timestamp = pd.to_datetime(now_ist).floor('T')
+                
                 last_total_volume = df['last_volume'].iloc[-1] if not df.empty else 0
                 minute_volume = volume - last_total_volume
                 if current_bar_timestamp not in df.index:
@@ -136,8 +133,7 @@ class ProcessingEngine:
                     stock_info = settings.TOKEN_MAP.get(token, {})
                     symbol = stock_info.get("symbol")
                     if token not in self.opening_ranges:
-                        day_open = open_price / 100.0
-                        await self.get_opening_range_retroactively(token, symbol, day_open)
+                        await self.get_opening_range_retroactively(token, symbol)
                     orb = self.opening_ranges.get(token)
                     if not orb: continue
                     bias = stock_info.get("bias")
