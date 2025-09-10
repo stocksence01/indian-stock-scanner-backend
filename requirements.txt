@@ -12,3 +12,4 @@ ta
 requests
 websocket-client
 python-dotenv
+pytz

@@ -49,7 +49,8 @@ class ProcessingEngine:
                 if last_row['close'] < last_row['vwap']: score += 20
             
             return score
-        except Exception:
+        except Exception as e:
+            logger.exception(f"Error in final scoring for token {token}: {e}")
             return 0
 
     async def get_opening_range_retroactively(self, token, symbol):
@@ -91,14 +92,13 @@ class ProcessingEngine:
             try:
                 tick_data = await websocket_client.data_queue.get()
                 
-                # --- THE KEY FIX IS HERE: Always use IST for time checks ---
                 now_ist = datetime.now(ist)
                 now_time = now_ist.time()
 
                 token = tick_data.get('token')
                 ltp = tick_data.get('last_traded_price')
                 open_price = tick_data.get('open_price')
-                volume = tick_data.get('volume_ traded_today')
+                volume = tick_data.get('volume_traded_today')
 
                 if not all([token, ltp, open_price, volume]):
                     continue
