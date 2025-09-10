@@ -2,8 +2,8 @@ import pandas as pd
 import ta
 from logzero import logger
 import asyncio
-from datetime import time, datetime, timedelta
-import pytz
+from datetime import time, datetime
+import pytz # Library for handling timezones
 
 from services.smartapi_service import smartapi_service
 from services.websocket_client import websocket_client
@@ -15,13 +15,45 @@ class ProcessingEngine:
         self.scan_results = {}
         self.opening_ranges = {}
         self.index_data = {}
-        logger.info("Processing Engine initialized with Retroactive ORB Logic.")
+        logger.info("Processing Engine initialized with all features.")
+
+    def calculate_final_score(self, token):
+        """This is the final confirmation scoring step."""
+        df = self.data_store.get(token)
+        if df is None or len(df) < 30: return 0
+
+        stock_info = settings.TOKEN_MAP.get(token, {})
+        bias = stock_info.get("bias")
+        
+        try:
+            df['rsi'] = ta.momentum.rsi(df['close'], window=14)
+            macd = ta.trend.MACD(df['close'])
+            df['macd'] = macd.macd()
+            df['macd_signal'] = macd.macd_signal()
+            df['vwap'] = ta.volume.volume_weighted_average_price(
+                high=df['high'], low=df['low'], close=df['close'], volume=df['volume'], window=len(df)
+            )
+            
+            score = 0
+            last_row = df.iloc[-1]
+            prev_row = df.iloc[-2]
+
+            if bias == "Bullish":
+                if last_row['rsi'] > 65: score += 40
+                if prev_row['macd'] < prev_row['macd_signal'] and last_row['macd'] > last_row['macd_signal']: score += 40
+                if last_row['close'] > last_row['vwap']: score += 20
+            
+            elif bias == "Bearish":
+                if last_row['rsi'] < 35: score += 40
+                if prev_row['macd'] > prev_row['macd_signal'] and last_row['macd'] < last_row['macd_signal']: score += 40
+                if last_row['close'] < last_row['vwap']: score += 20
+            
+            return score
+        except Exception:
+            return 0
 
     async def get_opening_range_retroactively(self, token, symbol):
-        """
-        If the server starts after 9:30, this function fetches the 1-minute data
-        from 9:15 to 9:30 to calculate the opening range.
-        """
+        """If the server starts after 9:30, fetches the 1-minute data to calculate the ORB."""
         try:
             logger.info(f"Retroactively fetching opening range for {symbol}...")
             ist = pytz.timezone('Asia/Kolkata')
@@ -38,7 +70,6 @@ class ProcessingEngine:
             data = smartapi_service.smart_api.getCandleData(historic_param)
             
             if data.get("status") and data.get("data"):
-                # The historical data is a list of lists. Column indices: 0=time, 1=open, 2=high, 3=low, 4=close, 5=volume
                 df_orb = pd.DataFrame(data["data"], columns=['time', 'open', 'high', 'low', 'close', 'volume'])
                 orb_high = df_orb['high'].max() / 100.0
                 orb_low = df_orb['low'].min() / 100.0
@@ -59,12 +90,15 @@ class ProcessingEngine:
         while True:
             try:
                 tick_data = await websocket_client.data_queue.get()
-                now_time = datetime.now(ist).time()
+                
+                # --- THE KEY FIX IS HERE: Always use IST for time checks ---
+                now_ist = datetime.now(ist)
+                now_time = now_ist.time()
 
                 token = tick_data.get('token')
                 ltp = tick_data.get('last_traded_price')
                 open_price = tick_data.get('open_price')
-                volume = tick_data.get('volume_traded_today')
+                volume = tick_data.get('volume_ traded_today')
 
                 if not all([token, ltp, open_price, volume]):
                     continue
@@ -75,10 +109,7 @@ class ProcessingEngine:
                     opening = open_price / 100.0
                     change = price - opening
                     percent_change = (change / opening) * 100 if opening > 0 else 0
-                    self.index_data[token] = {
-                        "name": settings.INDEX_TOKENS[token],
-                        "ltp": price, "change": change, "percent_change": percent_change
-                    }
+                    self.index_data[token] = {"name": settings.INDEX_TOKENS[token], "ltp": price, "change": change, "percent_change": percent_change}
                     continue
 
                 if token not in self.data_store:
@@ -87,7 +118,7 @@ class ProcessingEngine:
                     self.data_store[token]['last_volume'] = 0
 
                 df = self.data_store[token]
-                current_bar_timestamp = datetime.now(ist).floor('T')
+                current_bar_timestamp = now_ist.floor('T')
                 last_total_volume = df['last_volume'].iloc[-1] if not df.empty else 0
                 minute_volume = volume - last_total_volume
 
@@ -136,7 +167,7 @@ class ProcessingEngine:
                     elif bias == "Bearish" and price < orb['low']: is_breakout = True
 
                     if is_breakout:
-                        final_score = 100 # We can re-add confirmation scoring later
+                        final_score = 100 + self.calculate_final_score(token)
                         self.scan_results[token] = {"symbol": symbol, "score": final_score, "price": price, "bias": bias}
                     else:
                         if token in self.scan_results: del self.scan_results[token]
