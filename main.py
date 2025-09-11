@@ -22,22 +22,17 @@ async def lifespan(app: FastAPI):
     """Handles application startup and shutdown events."""
     logger.info("Application starting up...")
     
-    run_mode = os.getenv("RUN_MODE", "MOCK").upper()
+    run_mode = os.getenv("RUN_MODE", "LIVE").upper()
 
     if run_mode == "LIVE":
         logger.info("Starting in LIVE DATA mode.")
         if smartapi_service.login():
             logger.info("Successfully logged into SmartAPI.")
             
-            # --- THIS IS THE FINAL FIX ---
-            # We start the processing loop as a separate, long-running asyncio task.
-            # And we run the WebSocket connection in a separate thread.
-            # This is the most stable pattern for this type of application.
-            asyncio.create_task(processing_engine.start_processing_loop())
-            
             ws_thread = threading.Thread(target=websocket_client.connect, daemon=True)
             ws_thread.start()
             
+            asyncio.create_task(processing_engine.start_processing_loop())
             asyncio.create_task(broadcast_realtime_scan_results())
         else:
             logger.error("Failed to log into SmartAPI.")
@@ -57,7 +52,7 @@ app = FastAPI(
 )
 
 async def broadcast_realtime_scan_results():
-    """Broadcasts top 5 bullish/bearish stocks and saves them to the database."""
+    """Broadcasts top 10 bullish/bearish stocks and saves them to the database."""
     while True:
         await asyncio.sleep(5)
         if processing_engine.scan_results or processing_engine.index_data:
@@ -72,8 +67,9 @@ async def broadcast_realtime_scan_results():
             bullish_stocks.sort(key=lambda x: x.get('score', 0), reverse=True)
             bearish_stocks.sort(key=lambda x: x.get('score', 0), reverse=True)
             
-            top_bullish = bullish_stocks[:5]
-            top_bearish = bearish_stocks[:5]
+            # --- THIS IS THE UPGRADE: Changed from 5 to 10 ---
+            top_bullish = bullish_stocks[:10]
+            top_bearish = bearish_stocks[:10]
 
             for stock in top_bullish:
                 database_service.save_signal(stock)
@@ -121,23 +117,16 @@ def get_stock_details(token: str):
     stock_info = settings.TOKEN_MAP.get(token)
     if not stock_info:
         return {"error": "Stock not found in watchlist"}
-
     df = processing_engine.data_store.get(token)
     orb = processing_engine.opening_ranges.get(token)
-    
     if df is None or len(df) < 2 or orb is None:
         return {"error": "Not enough data available yet for analysis."}
-
     last_row = df.iloc[-1]
     prev_row = df.iloc[-2]
-
     details = {
-        "symbol": stock_info.get("symbol"),
-        "dailyBias": stock_info.get("bias"),
-        "openingRangeHigh": orb.get('high'),
-        "openingRangeLow": orb.get('low'),
-        "lastPrice": last_row.get('close'),
-        "intradayRsi": last_row.get('rsi', 0),
+        "symbol": stock_info.get("symbol"), "dailyBias": stock_info.get("bias"),
+        "openingRangeHigh": orb.get('high'), "openingRangeLow": orb.get('low'),
+        "lastPrice": last_row.get('close'), "intradayRsi": last_row.get('rsi', 0),
         "macdCrossover": (prev_row.get('macd', 0) < prev_row.get('macd_signal', 0) and 
                           last_row.get('macd', 0) > last_row.get('macd_signal', 0)),
         "bearishMacdCrossover": (prev_row.get('macd', 0) > prev_row.get('macd_signal', 0) and 
@@ -149,10 +138,8 @@ def get_stock_details(token: str):
 def get_intraday_history(token: str):
     """Provides 1-minute chart data for a single stock."""
     df = processing_engine.data_store.get(token)
-    
     if df is None or df.empty:
         return {"error": "No intraday data available for this token."}
-
     df_reset = df.reset_index()
     df_reset['time'] = (df_reset['timestamp'].astype(int) / 10**9).astype(int)
     chart_data = df_reset[['time', 'open', 'high', 'low', 'close']].to_dict(orient='records')
@@ -165,7 +152,7 @@ app.add_middleware(
 
 @app.get("/health")
 def health_check():
-    """A simple endpoint for Render's health checker to call."""
+    """A simple endpoint for Render's health checker."""
     return {"status": "ok"}
 
 @app.get("/")
