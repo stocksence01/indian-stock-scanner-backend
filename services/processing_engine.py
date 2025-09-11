@@ -24,7 +24,6 @@ class ProcessingEngine:
         self.index_data: Dict[str, Dict] = {}
         logger.info("Processing Engine initialized with all features.")
 
-    # ---------- Helpers ----------
     def _safe_get_best_price(self, tick: dict, key: str) -> float:
         """Return first price from an array of price/qty objects, or 0."""
         arr = tick.get(key) or []
@@ -44,9 +43,8 @@ class ProcessingEngine:
         vwap.index = tmp.index
         return vwap
 
-    # ---------- Scoring ----------
-    def calculate_final_score(self, token: str) -> int:
-        """Robust final-scoring combining RSI, MACD cross, and VWAP position."""
+    def calculate_confirmation_score(self, token: str) -> int:
+        """Calculates a score based on confirming indicators (RSI, MACD, VWAP)."""
         df = self.data_store.get(token)
         if df is None or len(df) < 30:
             return 0
@@ -82,10 +80,9 @@ class ProcessingEngine:
 
             return int(score)
         except Exception as e:
-            logger.exception(f"Error in final scoring for token {token}: {e}")
+            logger.exception(f"Error in confirmation scoring for token {token}: {e}")
             return 0
 
-    # ---------- Retro ORB fetch ----------
     async def get_opening_range_retroactively(self, token: str, symbol: Optional[str], open_price_of_day: float) -> None:
         """Fetch 1-minute candles from 09:15 to 09:30 IST and compute ORB."""
         try:
@@ -109,17 +106,14 @@ class ProcessingEngine:
                 self.opening_ranges[token] = {"high": orb_high, "low": orb_low}
                 logger.info(f"Calculated retro ORB for {symbol}: High={orb_high}, Low={orb_low}")
             else:
-                # --- THIS IS FAILSAFE FIX #1 ---
                 logger.error(f"Could not fetch retro ORB for {symbol}. Using a failsafe range.")
                 self.opening_ranges[token] = {"high": open_price_of_day * 1.002, "low": open_price_of_day * 0.998}
         except Exception as e:
             logger.exception(f"Exception while fetching retro ORB for {symbol}: {e}")
-            # --- THIS IS FAILSAFE FIX #1 ---
             self.opening_ranges[token] = {"high": open_price_of_day * 1.002, "low": open_price_of_day * 0.998}
 
-    # ---------- Main processing loop ----------
     async def start_processing_loop(self) -> None:
-        """Consume ticks from websocket_client.data_queue and maintain state."""
+        """Consume ticks and maintain state with two-tiered signal logic."""
         logger.info("Starting the advanced processing loop...")
         ist = pytz.timezone("Asia/Kolkata")
         opening_range_start = time(9, 15)
@@ -204,13 +198,21 @@ class ProcessingEngine:
                     elif bias == "Bearish" and price < orb["low"]:
                         is_breakout = True
 
+                    # --- THIS IS THE NEW TWO-TIERED LOGIC ---
                     if is_breakout:
-                        final_score = 100 + self.calculate_final_score(token)
-                        # --- THIS IS SCORING FIX #2 ---
-                        if final_score >= 100: # Changed from > to >=
+                        # "Sniper Shot": High base score + confirmation
+                        final_score = 100 + self.calculate_confirmation_score(token)
+                        if final_score >= 100:
                             self.scan_results[token] = {"symbol": symbol, "score": final_score, "price": price, "bias": bias}
                     else:
-                        self.scan_results.pop(token, None)
+                        # "Scout Report": Check for general momentum even without a breakout
+                        confirmation_score = self.calculate_confirmation_score(token)
+                        if confirmation_score > 0:
+                            # Assign the lower confirmation score
+                            self.scan_results[token] = {"symbol": symbol, "score": confirmation_score, "price": price, "bias": bias}
+                        else:
+                            # If no breakout AND no momentum, remove it from the list
+                            self.scan_results.pop(token, None)
 
             except asyncio.CancelledError:
                 logger.info("Processing loop cancelled.")
