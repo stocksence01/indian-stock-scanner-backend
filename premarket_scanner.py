@@ -10,7 +10,7 @@ from services.smartapi_service import smartapi_service
 def fetch_historical_data(smart_api, token):
     """Fetches daily data for a stock. Includes a retry mechanism for rate limiting."""
     retries = 3
-    delay = 2
+    delay = 5
     for i in range(retries):
         try:
             to_date = datetime.now()
@@ -21,8 +21,8 @@ def fetch_historical_data(smart_api, token):
                 "todate": to_date.strftime("%Y-%m-%d %H:%M")
             }
             data = smart_api.getCandleData(historic_param)
-            if data.get("message") and "exceeding access rate" in data["message"]:
-                logger.warning(f"Rate limit hit for {token}. Retrying in {delay}s...")
+            if "exceeding access rate" in str(data):
+                logger.warning(f"Rate limit hit for {token}. Cooling down for {delay} seconds...")
                 time.sleep(delay)
                 delay *= 2
                 continue
@@ -32,11 +32,11 @@ def fetch_historical_data(smart_api, token):
                 df.set_index('timestamp', inplace=True)
                 return df.iloc[-30:] 
             else:
+                logger.warning(f"No valid historical data for token {token}. Response: {data.get('message')}")
                 return None
         except Exception as e:
-            logger.error(f"An exception occurred for {token}: {e}. Retrying...")
-            time.sleep(delay)
-            delay *= 2
+            logger.error(f"An unhandled exception occurred for {token}: {e}")
+            return None
     logger.error(f"Failed to fetch data for token {token} after {retries} retries.")
     return None
 
@@ -63,7 +63,7 @@ def analyze_stock(df):
     return bull_score, bear_score
 
 def create_daily_watchlist():
-    """Analyzes all stocks and saves the top 10/10 for the free tier."""
+    """Analyzes all stocks and saves the top 50/50 for the standard tier."""
     logger.info("Starting unified Bullish/Bearish pre-market watchlist creation...")
     if not smartapi_service.login():
         logger.error("Could not log in to SmartAPI. Aborting.")
@@ -75,47 +75,32 @@ def create_daily_watchlist():
         logger.error("scannable_stocks.json not found.")
         return
 
-    bullish_stocks, bearish_stocks, failed_stocks = [], [], []
+    bullish_stocks, bearish_stocks = [], []
     
-    logger.info(f"--- Starting First Pass: Analyzing {len(full_stock_list)} stocks ---")
+    logger.info(f"--- Analyzing {len(full_stock_list)} stocks ---")
     for i, (token, symbol) in enumerate(full_stock_list.items()):
         logger.info(f"Analyzing [{i+1}/{len(full_stock_list)}]: {symbol}")
         df = fetch_historical_data(smartapi_service.smart_api, token)
         bull_score, bear_score = analyze_stock(df)
-        if bull_score is None:
-            failed_stocks.append((token, symbol))
-        else:
+        if bull_score is not None:
             if bull_score > 0: bullish_stocks.append({"token": token, "symbol": symbol, "score": bull_score})
             if bear_score > 0: bearish_stocks.append({"token": token, "symbol": symbol, "score": bear_score})
         time.sleep(0.3)
-
-    if failed_stocks:
-        logger.info(f"\n--- Starting Second Pass: Retrying {len(failed_stocks)} failed stocks ---")
-        for i, (token, symbol) in enumerate(failed_stocks):
-            logger.info(f"Retrying [{i+1}/{len(failed_stocks)}]: {symbol}")
-            df = fetch_historical_data(smartapi_service.smart_api, token)
-            bull_score, bear_score = analyze_stock(df)
-            if bull_score is not None:
-                if bull_score > 0: bullish_stocks.append({"token": token, "symbol": symbol, "score": bull_score})
-                if bear_score > 0: bearish_stocks.append({"token": token, "symbol": symbol, "score": bear_score})
-            else:
-                logger.error(f"Failed to retrieve data for {symbol} on second attempt. Skipping permanently.")
-            time.sleep(0.3)
 
     logger.info(f"Found {len(bullish_stocks)} total bullish candidates and {len(bearish_stocks)} total bearish candidates.")
     
     bullish_stocks.sort(key=lambda x: x['score'], reverse=True)
     bearish_stocks.sort(key=lambda x: x['score'], reverse=True)
     
-    # --- THIS IS THE FINAL OPTIMIZATION ---
-    top_10_bullish = bullish_stocks[:10]
-    top_10_bearish = bearish_stocks[:10]
-    logger.info(f"Taking the top {len(top_10_bullish)} bullish and {len(top_10_bearish)} bearish stocks.")
+    # --- THIS IS THE UPGRADE ---
+    top_50_bullish = bullish_stocks[:50]
+    top_50_bearish = bearish_stocks[:50]
+    logger.info(f"Taking the top {len(top_50_bullish)} bullish and {len(top_50_bearish)} bearish stocks.")
 
     final_watchlist = {}
-    for stock in top_10_bullish:
+    for stock in top_50_bullish:
         final_watchlist[stock['token']] = {"symbol": stock['symbol'], "bias": "Bullish"}
-    for stock in top_10_bearish:
+    for stock in top_50_bearish:
         final_watchlist[stock['token']] = {"symbol": stock['symbol'], "bias": "Bearish"}
 
     logger.info(f"Final watchlist will contain {len(final_watchlist)} unique stocks.")

@@ -38,16 +38,8 @@ class ProcessingEngine:
         if df.empty:
             return pd.Series(dtype=float)
         tmp = df.copy()
-        # Ensure correct data types before calculation
-        tmp['high'] = pd.to_numeric(tmp['high'], errors='coerce')
-        tmp['low'] = pd.to_numeric(tmp['low'], errors='coerce')
-        tmp['close'] = pd.to_numeric(tmp['close'], errors='coerce')
-        tmp['volume'] = pd.to_numeric(tmp['volume'], errors='coerce')
-        tmp.dropna(subset=['high', 'low', 'close', 'volume'], inplace=True)
-        
-        typical_price = (tmp["high"] + tmp["low"] + tmp["close"]) / 3.0
-        pv = typical_price * tmp["volume"]
-        
+        typical = (tmp["high"] + tmp["low"] + tmp["close"]) / 3.0
+        pv = typical * tmp["volume"]
         vwap = pv.groupby(tmp.index.date).cumsum() / tmp["volume"].groupby(tmp.index.date).cumsum()
         vwap.index = tmp.index
         return vwap
@@ -71,8 +63,6 @@ class ProcessingEngine:
             calc_df["macd_signal"] = macd.macd_signal()
             vwap_series = self._compute_vwap_per_day(calc_df)
             calc_df["vwap"] = vwap_series
-            
-            # --- FIX: Handle NaN values from indicators ---
             temp_df = calc_df.dropna()
             if len(temp_df) < 2:
                 return 0
@@ -119,10 +109,12 @@ class ProcessingEngine:
                 self.opening_ranges[token] = {"high": orb_high, "low": orb_low}
                 logger.info(f"Calculated retro ORB for {symbol}: High={orb_high}, Low={orb_low}")
             else:
+                # --- THIS IS FAILSAFE FIX #1 ---
                 logger.error(f"Could not fetch retro ORB for {symbol}. Using a failsafe range.")
                 self.opening_ranges[token] = {"high": open_price_of_day * 1.002, "low": open_price_of_day * 0.998}
         except Exception as e:
             logger.exception(f"Exception while fetching retro ORB for {symbol}: {e}")
+            # --- THIS IS FAILSAFE FIX #1 ---
             self.opening_ranges[token] = {"high": open_price_of_day * 1.002, "low": open_price_of_day * 0.998}
 
     # ---------- Main processing loop ----------
@@ -175,11 +167,8 @@ class ProcessingEngine:
                     df.at[current_bar_timestamp, "volume"] = float(row["volume"]) + minute_volume
                     df.at[current_bar_timestamp, "last_volume"] = float(cumulative_volume)
 
-                # --- FIX: Safer best bid/ask access ---
-                bid_info = tick_data.get('best_5_buy_price_and_quantity', [])
-                ask_info = tick_data.get('best_5_sell_price_and_quantity', [])
-                best_bid = bid_info[0].get('price', 0) if bid_info else 0
-                best_ask = ask_info[0].get('price', 0) if ask_info else 0
+                best_bid = self._safe_get_best_price(tick_data, "best_5_buy_price_and_quantity")
+                best_ask = self._safe_get_best_price(tick_data, "best_5_sell_price_and_quantity")
                 if not (best_bid and best_ask):
                     continue
 
@@ -217,7 +206,8 @@ class ProcessingEngine:
 
                     if is_breakout:
                         final_score = 100 + self.calculate_final_score(token)
-                        if final_score >= 100:
+                        # --- THIS IS SCORING FIX #2 ---
+                        if final_score >= 100: # Changed from > to >=
                             self.scan_results[token] = {"symbol": symbol, "score": final_score, "price": price, "bias": bias}
                     else:
                         # "Scout" logic for non-breakout momentum
