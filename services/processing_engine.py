@@ -56,7 +56,7 @@ class ProcessingEngine:
                         "symbol": stock_info.get("symbol"),
                         "price": price,
                         "bias": stock_info.get("bias"),
-                        "token": token,
+                        "token": token, # Pass token for frontend use
                         "change": change,
                         "percent_change": percent_change
                     }
