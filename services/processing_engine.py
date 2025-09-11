@@ -24,7 +24,6 @@ class ProcessingEngine:
         self.index_data: Dict[str, Dict] = {}
         logger.info("Processing Engine initialized with all features.")
 
-    # ---------- Helpers ----------
     def _safe_get_best_price(self, tick: dict, key: str) -> float:
         """Return first price from an array of price/qty objects, or 0."""
         arr = tick.get(key) or []
@@ -44,9 +43,8 @@ class ProcessingEngine:
         vwap.index = tmp.index
         return vwap
 
-    # ---------- Scoring ----------
-    def calculate_final_score(self, token: str) -> int:
-        """Robust final-scoring combining RSI, MACD cross, and VWAP position."""
+    def calculate_confirmation_score(self, token: str) -> int:
+        """Robust final-scoring combining RSI, Volume Spike, and VWAP position."""
         df = self.data_store.get(token)
         if df is None or len(df) < 30:
             return 0
@@ -58,26 +56,29 @@ class ProcessingEngine:
             df = df.sort_index()
             calc_df = df[["open", "high", "low", "close", "volume"]].copy()
             calc_df["rsi"] = ta.momentum.rsi(calc_df["close"], window=14)
-            macd = ta.trend.MACD(calc_df["close"])
-            calc_df["macd"] = macd.macd()
-            calc_df["macd_signal"] = macd.macd_signal()
             vwap_series = self._compute_vwap_per_day(calc_df)
             calc_df["vwap"] = vwap_series
+            
+            # --- NEW: Calculate average volume ---
+            calc_df["volume_sma"] = calc_df["volume"].rolling(window=20).mean()
+
             temp_df = calc_df.dropna()
             if len(temp_df) < 2:
                 return 0
 
             score = 0
             last_row = temp_df.iloc[-1]
-            prev_row = temp_df.iloc[-2]
+
+            # --- NEW: Check for a volume spike ---
+            is_volume_spike = last_row["volume"] > (last_row["volume_sma"] * 2)
 
             if bias == "Bullish":
-                if last_row["rsi"] > 65: score += 40
-                if prev_row["macd"] < prev_row["macd_signal"] and last_row["macd"] > last_row["macd_signal"]: score += 40
+                if last_row["rsi"] > 60: score += 40
+                if is_volume_spike: score += 40 # Replaced MACD with Volume
                 if last_row["close"] > last_row["vwap"]: score += 20
             elif bias == "Bearish":
-                if last_row["rsi"] < 35: score += 40
-                if prev_row["macd"] > prev_row["macd_signal"] and last_row["macd"] < last_row["macd_signal"]: score += 40
+                if last_row["rsi"] < 40: score += 40
+                if is_volume_spike: score += 40 # Replaced MACD with Volume
                 if last_row["close"] < last_row["vwap"]: score += 20
 
             return int(score)
@@ -85,7 +86,6 @@ class ProcessingEngine:
             logger.exception(f"Error in final scoring for token {token}: {e}")
             return 0
 
-    # ---------- Retro ORB fetch ----------
     async def get_opening_range_retroactively(self, token: str, symbol: Optional[str], open_price_of_day: float) -> None:
         """Fetch 1-minute candles from 09:15 to 09:30 IST and compute ORB."""
         try:
@@ -109,17 +109,14 @@ class ProcessingEngine:
                 self.opening_ranges[token] = {"high": orb_high, "low": orb_low}
                 logger.info(f"Calculated retro ORB for {symbol}: High={orb_high}, Low={orb_low}")
             else:
-                # --- THIS IS FAILSAFE FIX #1 ---
                 logger.error(f"Could not fetch retro ORB for {symbol}. Using a failsafe range.")
                 self.opening_ranges[token] = {"high": open_price_of_day * 1.002, "low": open_price_of_day * 0.998}
         except Exception as e:
             logger.exception(f"Exception while fetching retro ORB for {symbol}: {e}")
-            # --- THIS IS FAILSAFE FIX #1 ---
             self.opening_ranges[token] = {"high": open_price_of_day * 1.002, "low": open_price_of_day * 0.998}
 
-    # ---------- Main processing loop ----------
     async def start_processing_loop(self) -> None:
-        """Consume ticks from websocket_client.data_queue and maintain state."""
+        """Consume ticks and maintain state with two-tiered signal logic."""
         logger.info("Starting the advanced processing loop...")
         ist = pytz.timezone("Asia/Kolkata")
         opening_range_start = time(9, 15)
@@ -205,13 +202,11 @@ class ProcessingEngine:
                         is_breakout = True
 
                     if is_breakout:
-                        final_score = 100 + self.calculate_final_score(token)
-                        # --- THIS IS SCORING FIX #2 ---
-                        if final_score >= 100: # Changed from > to >=
+                        final_score = 100 + self.calculate_confirmation_score(token)
+                        if final_score >= 100:
                             self.scan_results[token] = {"symbol": symbol, "score": final_score, "price": price, "bias": bias}
                     else:
-                        # "Scout" logic for non-breakout momentum
-                        confirmation_score = self.calculate_final_score(token)
+                        confirmation_score = self.calculate_confirmation_score(token)
                         if confirmation_score > 0:
                             self.scan_results[token] = {"symbol": symbol, "score": confirmation_score, "price": price, "bias": bias}
                         else:
