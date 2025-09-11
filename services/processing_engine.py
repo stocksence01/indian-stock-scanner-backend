@@ -24,6 +24,7 @@ class ProcessingEngine:
         self.index_data: Dict[str, Dict] = {}
         logger.info("Processing Engine initialized with all features.")
 
+    # ---------- Helpers ----------
     def _safe_get_best_price(self, tick: dict, key: str) -> float:
         """Return first price from an array of price/qty objects, or 0."""
         arr = tick.get(key) or []
@@ -37,14 +38,23 @@ class ProcessingEngine:
         if df.empty:
             return pd.Series(dtype=float)
         tmp = df.copy()
-        typical = (tmp["high"] + tmp["low"] + tmp["close"]) / 3.0
-        pv = typical * tmp["volume"]
+        # Ensure correct data types before calculation
+        tmp['high'] = pd.to_numeric(tmp['high'], errors='coerce')
+        tmp['low'] = pd.to_numeric(tmp['low'], errors='coerce')
+        tmp['close'] = pd.to_numeric(tmp['close'], errors='coerce')
+        tmp['volume'] = pd.to_numeric(tmp['volume'], errors='coerce')
+        tmp.dropna(subset=['high', 'low', 'close', 'volume'], inplace=True)
+        
+        typical_price = (tmp["high"] + tmp["low"] + tmp["close"]) / 3.0
+        pv = typical_price * tmp["volume"]
+        
         vwap = pv.groupby(tmp.index.date).cumsum() / tmp["volume"].groupby(tmp.index.date).cumsum()
         vwap.index = tmp.index
         return vwap
 
-    def calculate_confirmation_score(self, token: str) -> int:
-        """Calculates a score based on confirming indicators (RSI, MACD, VWAP)."""
+    # ---------- Scoring ----------
+    def calculate_final_score(self, token: str) -> int:
+        """Robust final-scoring combining RSI, MACD cross, and VWAP position."""
         df = self.data_store.get(token)
         if df is None or len(df) < 30:
             return 0
@@ -61,6 +71,8 @@ class ProcessingEngine:
             calc_df["macd_signal"] = macd.macd_signal()
             vwap_series = self._compute_vwap_per_day(calc_df)
             calc_df["vwap"] = vwap_series
+            
+            # --- FIX: Handle NaN values from indicators ---
             temp_df = calc_df.dropna()
             if len(temp_df) < 2:
                 return 0
@@ -80,9 +92,10 @@ class ProcessingEngine:
 
             return int(score)
         except Exception as e:
-            logger.exception(f"Error in confirmation scoring for token {token}: {e}")
+            logger.exception(f"Error in final scoring for token {token}: {e}")
             return 0
 
+    # ---------- Retro ORB fetch ----------
     async def get_opening_range_retroactively(self, token: str, symbol: Optional[str], open_price_of_day: float) -> None:
         """Fetch 1-minute candles from 09:15 to 09:30 IST and compute ORB."""
         try:
@@ -112,8 +125,9 @@ class ProcessingEngine:
             logger.exception(f"Exception while fetching retro ORB for {symbol}: {e}")
             self.opening_ranges[token] = {"high": open_price_of_day * 1.002, "low": open_price_of_day * 0.998}
 
+    # ---------- Main processing loop ----------
     async def start_processing_loop(self) -> None:
-        """Consume ticks and maintain state with two-tiered signal logic."""
+        """Consume ticks from websocket_client.data_queue and maintain state."""
         logger.info("Starting the advanced processing loop...")
         ist = pytz.timezone("Asia/Kolkata")
         opening_range_start = time(9, 15)
@@ -161,8 +175,11 @@ class ProcessingEngine:
                     df.at[current_bar_timestamp, "volume"] = float(row["volume"]) + minute_volume
                     df.at[current_bar_timestamp, "last_volume"] = float(cumulative_volume)
 
-                best_bid = self._safe_get_best_price(tick_data, "best_5_buy_price_and_quantity")
-                best_ask = self._safe_get_best_price(tick_data, "best_5_sell_price_and_quantity")
+                # --- FIX: Safer best bid/ask access ---
+                bid_info = tick_data.get('best_5_buy_price_and_quantity', [])
+                ask_info = tick_data.get('best_5_sell_price_and_quantity', [])
+                best_bid = bid_info[0].get('price', 0) if bid_info else 0
+                best_ask = ask_info[0].get('price', 0) if ask_info else 0
                 if not (best_bid and best_ask):
                     continue
 
@@ -198,20 +215,16 @@ class ProcessingEngine:
                     elif bias == "Bearish" and price < orb["low"]:
                         is_breakout = True
 
-                    # --- THIS IS THE NEW TWO-TIERED LOGIC ---
                     if is_breakout:
-                        # "Sniper Shot": High base score + confirmation
-                        final_score = 100 + self.calculate_confirmation_score(token)
+                        final_score = 100 + self.calculate_final_score(token)
                         if final_score >= 100:
                             self.scan_results[token] = {"symbol": symbol, "score": final_score, "price": price, "bias": bias}
                     else:
-                        # "Scout Report": Check for general momentum even without a breakout
-                        confirmation_score = self.calculate_confirmation_score(token)
+                        # "Scout" logic for non-breakout momentum
+                        confirmation_score = self.calculate_final_score(token)
                         if confirmation_score > 0:
-                            # Assign the lower confirmation score
                             self.scan_results[token] = {"symbol": symbol, "score": confirmation_score, "price": price, "bias": bias}
                         else:
-                            # If no breakout AND no momentum, remove it from the list
                             self.scan_results.pop(token, None)
 
             except asyncio.CancelledError:
