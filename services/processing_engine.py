@@ -109,12 +109,12 @@ class ProcessingEngine:
                 self.opening_ranges[token] = {"high": orb_high, "low": orb_low}
                 logger.info(f"Calculated retro ORB for {symbol}: High={orb_high}, Low={orb_low}")
             else:
-                # --- THIS IS THE FAILSAFE FIX ---
+                # --- THIS IS FAILSAFE FIX #1 ---
                 logger.error(f"Could not fetch retro ORB for {symbol}. Using a failsafe range.")
                 self.opening_ranges[token] = {"high": open_price_of_day * 1.002, "low": open_price_of_day * 0.998}
         except Exception as e:
             logger.exception(f"Exception while fetching retro ORB for {symbol}: {e}")
-            # --- THIS IS THE FAILSAFE FIX ---
+            # --- THIS IS FAILSAFE FIX #1 ---
             self.opening_ranges[token] = {"high": open_price_of_day * 1.002, "low": open_price_of_day * 0.998}
 
     # ---------- Main processing loop ----------
@@ -206,7 +206,8 @@ class ProcessingEngine:
 
                     if is_breakout:
                         final_score = 100 + self.calculate_final_score(token)
-                        if final_score > 100:
+                        # --- THIS IS SCORING FIX #2 ---
+                        if final_score >= 100: # Changed from > to >=
                             self.scan_results[token] = {"symbol": symbol, "score": final_score, "price": price, "bias": bias}
                     else:
                         self.scan_results.pop(token, None)
