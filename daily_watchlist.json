@@ -1,4 +1,8 @@
 {
+  "11253": {
+    "symbol": "WELSPUNLIV-EQ",
+    "bias": "Bullish"
+  },
   "10793": {
     "symbol": "SYRMA-EQ",
     "bias": "Bullish"
@@ -19,6 +23,14 @@
     "symbol": "KAYNES-EQ",
     "bias": "Bullish"
   },
+  "13643": {
+    "symbol": "ELECON-EQ",
+    "bias": "Bullish"
+  },
+  "13776": {
+    "symbol": "GESHIP-EQ",
+    "bias": "Bullish"
+  },
   "14180": {
     "symbol": "NSLNISP-EQ",
     "bias": "Bullish"
@@ -27,24 +39,8 @@
     "symbol": "INDIANB-EQ",
     "bias": "Bullish"
   },
-  "14592": {
-    "symbol": "FORTIS-EQ",
-    "bias": "Bullish"
-  },
-  "163": {
-    "symbol": "APOLLOTYRE-EQ",
-    "bias": "Bullish"
-  },
-  "11915": {
-    "symbol": "YESBANK-EQ",
-    "bias": "Bullish"
-  },
   "10940": {
     "symbol": "DIVISLAB-EQ",
-    "bias": "Bearish"
-  },
-  "10753": {
-    "symbol": "UNIONBANK-EQ",
     "bias": "Bearish"
   },
   "11195": {
@@ -55,16 +51,8 @@
     "symbol": "GNFC-EQ",
     "bias": "Bearish"
   },
-  "12018": {
-    "symbol": "SUZLON-EQ",
-    "bias": "Bearish"
-  },
   "1270": {
     "symbol": "AMBUJACEM-EQ",
-    "bias": "Bearish"
-  },
-  "13786": {
-    "symbol": "TORNTPOWER-EQ",
     "bias": "Bearish"
   },
   "16713": {
@@ -77,6 +65,18 @@
   },
   "19943": {
     "symbol": "DEEPAKNTR-EQ",
+    "bias": "Bearish"
+  },
+  "2043": {
+    "symbol": "RAMCOCEM-EQ",
+    "bias": "Bearish"
+  },
+  "12032": {
+    "symbol": "FIVESTAR-EQ",
+    "bias": "Bearish"
+  },
+  "1250": {
+    "symbol": "CASTROLIND-EQ",
     "bias": "Bearish"
   }
 }
