@@ -33,16 +33,9 @@ async def lifespan(app: FastAPI):
     """Handles application startup and shutdown events."""
     logger.info("Application starting up...")
 
-    run_mode = os.getenv("RUN_MODE", "LIVE").upper()
-
-    if run_mode == "LIVE":
-        # Start SmartAPI login and websocket client
-        smartapi_service.login()
-        await websocket_client.connect()
-        asyncio.create_task(processing_engine.start_processing_loop())
-        asyncio.create_task(broadcast_live_watchlist())
-    else:
-        logger.warning("RUN_MODE is not LIVE. No live data will be processed.")
+    # FORCE TEST MODE: Only broadcast demo data, do not run live engine
+    asyncio.create_task(broadcast_live_watchlist())
+    logger.warning("RUN_MODE is TEST MODE. Only demo data will be broadcasted.")
 
     yield
 
