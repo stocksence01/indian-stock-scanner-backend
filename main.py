@@ -76,8 +76,8 @@ async def broadcast_live_watchlist():
 
     # Dummy index data
     indices = [
-        {"symbol": "NIFTY 50", "price": 23450.60, "percent_change": "0.55"},
-        {"symbol": "NIFTY BANK", "price": 49800.20, "percent_change": "-0.25"},
+        {"symbol": "NIFTY 50", "price": 23450.60, "percent_change": 0.55},
+        {"symbol": "NIFTY BANK", "price": 49800.20, "percent_change": -0.25},
     ]
 
     while True:
