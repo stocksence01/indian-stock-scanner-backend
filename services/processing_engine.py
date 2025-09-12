@@ -195,10 +195,12 @@ class ProcessingEngine:
                         final_score = 100 + self.calculate_confirmation_score(token)
                         if final_score >= 100:
                             self.scan_results[token] = {"symbol": symbol, "score": final_score, "price": price, "bias": bias}
+                            logger.info(f"Added to scan_results (breakout): {self.scan_results[token]}")
                     else:
                         confirmation_score = self.calculate_confirmation_score(token)
                         if confirmation_score > 0:
                             self.scan_results[token] = {"symbol": symbol, "score": confirmation_score, "price": price, "bias": bias}
+                            logger.info(f"Added to scan_results (confirmation): {self.scan_results[token]}")
                         else:
                             self.scan_results.pop(token, None)
 
