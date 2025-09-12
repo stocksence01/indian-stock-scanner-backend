@@ -78,4 +78,4 @@ def health_check():
 
 @app.get("/")
 def read_root():
-    return {"message": "Indian Stock Scanner API is
+    return {"message": "Indian Stock Scanner API is running"}
