@@ -6,12 +6,15 @@ from typing import Dict
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from logzero import logger
+import logzero
 
 from services.smartapi_service import smartapi_service
 from services.websocket_client import websocket_client
 from services.processing_engine import processing_engine
 from ws_connection.connection_manager import manager
 from core.config import settings
+
+logzero.loglevel(logzero.INFO)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
