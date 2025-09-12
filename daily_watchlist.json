@@ -15,6 +15,14 @@
     "symbol": "MARUTI-EQ",
     "bias": "Bullish"
   },
+  "11571": {
+    "symbol": "PPLPHARMA-EQ",
+    "bias": "Bullish"
+  },
+  "11655": {
+    "symbol": "JBMA-EQ",
+    "bias": "Bullish"
+  },
   "11723": {
     "symbol": "JSWSTEEL-EQ",
     "bias": "Bullish"
@@ -30,22 +38,6 @@
   "14180": {
     "symbol": "NSLNISP-EQ",
     "bias": "Bullish"
-  },
-  "14309": {
-    "symbol": "INDIANB-EQ",
-    "bias": "Bullish"
-  },
-  "14592": {
-    "symbol": "FORTIS-EQ",
-    "bias": "Bullish"
-  },
-  "10940": {
-    "symbol": "DIVISLAB-EQ",
-    "bias": "Bearish"
-  },
-  "1174": {
-    "symbol": "GNFC-EQ",
-    "bias": "Bearish"
   },
   "12018": {
     "symbol": "SUZLON-EQ",
@@ -63,10 +55,6 @@
     "symbol": "VBL-EQ",
     "bias": "Bearish"
   },
-  "19943": {
-    "symbol": "DEEPAKNTR-EQ",
-    "bias": "Bearish"
-  },
   "2043": {
     "symbol": "RAMCOCEM-EQ",
     "bias": "Bearish"
@@ -77,6 +65,18 @@
   },
   "1250": {
     "symbol": "CASTROLIND-EQ",
+    "bias": "Bearish"
+  },
+  "2088": {
+    "symbol": "MAHSEAMLES-EQ",
+    "bias": "Bearish"
+  },
+  "17903": {
+    "symbol": "ABBOTINDIA-EQ",
+    "bias": "Bearish"
+  },
+  "17927": {
+    "symbol": "BAYERCROP-EQ",
     "bias": "Bearish"
   }
 }
