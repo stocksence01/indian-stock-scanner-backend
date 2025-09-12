@@ -21,7 +21,7 @@ import logzero
 from services.smartapi_service import smartapi_service
 from services.websocket_client import websocket_client
 from services.processing_engine import processing_engine
-from services.connection_manager import manager
+from ws_connection.connection_manager import manager
 
 # Load environment variables and configure logging
 load_dotenv()

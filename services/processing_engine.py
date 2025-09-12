@@ -117,14 +117,6 @@ class ProcessingEngine:
                 tick_data = await websocket_client.data_queue.get()
                 token = str(tick_data.get("token"))
                 symbol = settings.TOKEN_MAP.get(token, {}).get("symbol", "TEST-EQ")
-                # --- ADVANCED PATCH: Always inject a test signal for any token that receives a tick ---
-                self.scan_results[token] = {
-                    "symbol": symbol,
-                    "score": 123,
-                    "price": 100.0,
-                    "bias": "Bullish"
-                }
-                print(f"[TEST] Forced test signal in scan_results: {self.scan_results[token]}")
 
                 now_ist = datetime.now(ist)
                 now_time = now_ist.time()
