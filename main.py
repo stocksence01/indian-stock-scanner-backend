@@ -50,6 +50,8 @@ async def broadcast_live_watchlist():
         bullish_stocks = [s for s in all_stocks if s.get("bias") == "Bullish"]
         bearish_stocks = [s for s in all_stocks if s.get("bias") == "Bearish"]
 
+        logger.info(f"Broadcasting bullish: {bullish_stocks}, bearish: {bearish_stocks}")
+
         if bullish_stocks or bearish_stocks or indices:
             await manager.broadcast({
                 "bullish": bullish_stocks,
