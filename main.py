@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
 
     if run_mode == "LIVE":
         # Start SmartAPI login and websocket client
-        await smartapi_service.login()
+        smartapi_service.login()
         await websocket_client.connect()
         asyncio.create_task(processing_engine.start_processing_loop())
         asyncio.create_task(broadcast_live_watchlist())
