@@ -17,7 +17,6 @@ from services.smartapi_service import smartapi_service
 from services.websocket_client import websocket_client
 from services.processing_engine import processing_engine
 from services.connection_manager import manager
-from auth_api import router as auth_router
 
 # Load environment variables and configure logging
 load_dotenv()
@@ -50,8 +49,6 @@ app = FastAPI(
     version="2.0.0",
     lifespan=lifespan
 )
-
-app.include_router(auth_router)
 
 async def broadcast_live_watchlist():
     print("broadcast_live_watchlist started")
