@@ -35,6 +35,7 @@ def load_scannable_stocks():
                 return token_map
         except FileNotFoundError:
             logger.error("scannable_stocks.json also not found! Please run instrument_downloader.py.")
+            # Provide a fallback with a single stock (RELIANCE) so the app doesn't crash
             return {"2885": {"symbol": "RELIANCE-EQ", "bias": "Bullish", "token": "2885"}}
     except Exception as e:
         logger.exception(f"Error loading stock list: {e}")
@@ -59,5 +60,3 @@ class Settings:
         stock_tokens = list(self.TOKEN_MAP.keys())
         index_tokens = list(self.INDEX_TOKENS.keys())
         return stock_tokens + index_tokens
-
-settings = Settings()
