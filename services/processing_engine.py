@@ -27,7 +27,9 @@ class ProcessingEngine:
             try:
                 tick_data = await websocket_client.data_queue.get()
 
+                # --- THIS IS THE FINAL FIX: Ensure the token is always a string ---
                 token = str(tick_data.get("token"))
+                
                 ltp = tick_data.get("last_traded_price")
                 open_price_day = tick_data.get("open_price_of_the_day")
 
@@ -56,7 +58,7 @@ class ProcessingEngine:
                         "symbol": stock_info.get("symbol"),
                         "price": price,
                         "bias": stock_info.get("bias"),
-                        "token": token, # Pass token for frontend use
+                        "token": token,
                         "change": change,
                         "percent_change": percent_change
                     }
