@@ -56,31 +56,40 @@ app = FastAPI(
 )
 
 async def broadcast_live_watchlist():
-    print("broadcast_live_watchlist started")
-    """Broadcasts the full, live-updating watchlist to the frontend."""
+    """
+    In TEST MODE, this function generates and broadcasts a static list of 
+    dummy stocks to verify the frontend is working correctly.
+    """
+    print("broadcast_live_watchlist started in TEST MODE.")
+    
+    # 5 dummy bullish stocks
+    bullish_stocks = [
+        {"symbol": f"BULL-{i}", "score": 100 + i*10, "price": 200.0 + i*5, "bias": "Bullish"}
+        for i in range(1, 6)
+    ]
+
+    # 5 dummy bearish stocks
+    bearish_stocks = [
+        {"symbol": f"BEAR-{i}", "score": 100 + i*10, "price": 500.0 - i*5, "bias": "Bearish"}
+        for i in range(1, 6)
+    ]
+
+    # Dummy index data
+    indices = [
+        {"symbol": "NIFTY 50", "price": 23450.60, "percent_change": "0.55"},
+        {"symbol": "NIFTY BANK", "price": 49800.20, "percent_change": "-0.25"},
+    ]
+
     while True:
-        await asyncio.sleep(2)  # Send updates every 2 seconds
-        # Always inject test signal, even if market is closed
-        processing_engine.scan_results['TEST'] = {
-            "symbol": "TEST-EQ",
-            "score": 123,
-            "price": 100.0,
-            "bias": "Bullish"
-        }
-        print(f"[TEST] Forced test signal in scan_results: {processing_engine.scan_results['TEST']}")
-        all_stocks = list(processing_engine.scan_results.values())
-        indices = list(processing_engine.index_data.values())
-        bullish_stocks = [s for s in all_stocks if s.get("bias") == "Bullish"]
-        bearish_stocks = [s for s in all_stocks if s.get("bias") == "Bearish"]
-
-        print(f"Broadcasting bullish: {bullish_stocks}, bearish: {bearish_stocks}")
-
-        if bullish_stocks or bearish_stocks or indices:
-            await manager.broadcast({
-                "bullish": bullish_stocks,
-                "bearish": bearish_stocks,
-                "indices": indices
-            })
+        print(f"Broadcasting TEST bullish: {len(bullish_stocks)}, bearish: {len(bearish_stocks)}")
+        
+        await manager.broadcast({
+            "bullish": bullish_stocks,
+            "bearish": bearish_stocks,
+            "indices": indices
+        })
+        
+        await asyncio.sleep(5)  # Broadcast every 5 seconds
 
 @app.websocket("/ws/scanner-updates")
 async def websocket_endpoint(websocket: WebSocket):
