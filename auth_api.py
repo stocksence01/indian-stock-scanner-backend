@@ -7,6 +7,12 @@ import time
 import os
 import re
 
+# --- Rate Limiting Placeholder ---
+# In production, use a library like slowapi to limit requests.
+# from fastapi_limiter import Limiter
+# from fastapi_limiter.depends import RateLimiter
+# limiter = Limiter(key_func=get_remote_address)
+
 # Simple in-memory user store (replace with DB for production)
 users_db = {}
 SECRET_KEY = os.getenv("AUTH_SECRET_KEY", "supersecretkey")
@@ -26,13 +32,28 @@ class Token(BaseModel):
 # Placeholder for email verification status
 verified_emails = set()
 
+def is_strong_password(password: str) -> bool:
+    """Checks for strong password: 8+ chars, upper, lower, digit, special."""
+    if len(password) < 8: return False
+    if not re.search(r"[A-Z]", password): return False
+    if not re.search(r"[a-z]", password): return False
+    if not re.search(r"\d", password): return False
+    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password): return False
+    return True
+
 @router.post("/register")
+# @limiter.limit("5/minute") # Placeholder for rate limiting
 def register(user: UserCreate):
     # Strict email format validation
     if not re.match(r"^[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,}$", user.email):
         raise HTTPException(status_code=400, detail="Invalid email format")
     if user.email in users_db:
         raise HTTPException(status_code=400, detail="Email already registered")
+    if not is_strong_password(user.password):
+        raise HTTPException(
+            status_code=400,
+            detail="Password must be 8+ characters with uppercase, lowercase, number, and special character."
+        )
     hashed_pw = pwd_context.hash(user.password)
     users_db[user.email] = {"email": user.email, "hashed_pw": hashed_pw, "verified": False}
     # Placeholder: send verification email here
@@ -49,6 +70,7 @@ def verify_email(email: str):
     raise HTTPException(status_code=404, detail="Email not found")
 
 @router.post("/login", response_model=Token)
+# @limiter.limit("10/minute") # Placeholder for rate limiting
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
     user = users_db.get(form_data.username)
     if not user or not pwd_context.verify(form_data.password, user["hashed_pw"]):

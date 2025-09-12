@@ -86,7 +86,14 @@ async def websocket_endpoint(websocket: WebSocket):
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"],
+    # IMPORTANT: For production, you MUST list your Vercel frontend URL here.
+    allow_origins=[
+        "http://localhost:5173",  # For local development
+        "https://stoksence.vercel.app"  # Your Vercel frontend URL
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.get("/health")
