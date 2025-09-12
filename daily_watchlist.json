@@ -43,8 +43,8 @@
     "symbol": "DIVISLAB-EQ",
     "bias": "Bearish"
   },
-  "11195": {
-    "symbol": "INDIGO-EQ",
+  "1174": {
+    "symbol": "GNFC-EQ",
     "bias": "Bearish"
   },
   "12018": {
@@ -53,10 +53,6 @@
   },
   "1270": {
     "symbol": "AMBUJACEM-EQ",
-    "bias": "Bearish"
-  },
-  "14413": {
-    "symbol": "PAGEIND-EQ",
     "bias": "Bearish"
   },
   "16713": {
@@ -77,6 +73,10 @@
   },
   "12032": {
     "symbol": "FIVESTAR-EQ",
+    "bias": "Bearish"
+  },
+  "1250": {
+    "symbol": "CASTROLIND-EQ",
     "bias": "Bearish"
   }
 }
