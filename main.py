@@ -54,14 +54,14 @@ async def broadcast_live_watchlist():
             "price": 100.0,
             "bias": "Bullish"
         }
-        logger.info(f"[TEST] Forced test signal in scan_results: {processing_engine.scan_results['10666']}")
+        print(f"[TEST] Forced test signal in scan_results: {processing_engine.scan_results['10666']}")
         # Use scan_results for scored signals instead of live_stock_data
         all_stocks = list(processing_engine.scan_results.values())
         indices = list(processing_engine.index_data.values())
         bullish_stocks = [s for s in all_stocks if s.get("bias") == "Bullish"]
         bearish_stocks = [s for s in all_stocks if s.get("bias") == "Bearish"]
 
-        logger.info(f"Broadcasting bullish: {bullish_stocks}, bearish: {bearish_stocks}")
+        print(f"Broadcasting bullish: {bullish_stocks}, bearish: {bearish_stocks}")
 
         if bullish_stocks or bearish_stocks or indices:
             await manager.broadcast({
