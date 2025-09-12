@@ -82,13 +82,11 @@ async def broadcast_live_watchlist():
 
     while True:
         print(f"Broadcasting TEST bullish: {len(bullish_stocks)}, bearish: {len(bearish_stocks)}")
-        
         await manager.broadcast({
             "bullish": bullish_stocks,
             "bearish": bearish_stocks,
             "indices": indices
         })
-        
         await asyncio.sleep(5)  # Broadcast every 5 seconds
 
 @app.websocket("/ws/scanner-updates")
