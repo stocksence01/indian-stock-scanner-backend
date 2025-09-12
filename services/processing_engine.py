@@ -52,8 +52,6 @@ class ProcessingEngine:
             df = df.sort_index()
             calc_df = df[["open", "high", "low", "close", "volume"]].copy()
             calc_df["rsi"] = ta.momentum.rsi(calc_df["close"], window=14)
-            vwap_series = self._compute_vwap_per_day(calc_df)
-            calc_df["vwap"] = vwap_series
             calc_df["volume_sma"] = calc_df["volume"].rolling(window=20).mean()
             temp_df = calc_df.dropna()
             if len(temp_df) < 2:
@@ -64,13 +62,11 @@ class ProcessingEngine:
             is_volume_spike = last_row["volume"] > (last_row["volume_sma"] * 2)
 
             if bias == "Bullish":
-                if last_row["rsi"] > 50: score += 40  # Lowered from 60 to 50
-                if is_volume_spike: score += 40
-                if last_row["close"] > last_row["vwap"]: score += 20
+                if last_row["rsi"] > 50: score += 50
+                if is_volume_spike: score += 50
             elif bias == "Bearish":
-                if last_row["rsi"] < 50: score += 40  # Raised from 40 to 50
-                if is_volume_spike: score += 40
-                if last_row["close"] < last_row["vwap"]: score += 20
+                if last_row["rsi"] < 50: score += 50
+                if is_volume_spike: score += 50
 
             return int(score)
         except Exception as e:
