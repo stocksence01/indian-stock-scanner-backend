@@ -1,20 +1,26 @@
 from __future__ import annotations
+
+# Standard library imports
 import os
 import asyncio
 from contextlib import asynccontextmanager
-from typing import Dict
+
+# Third-party imports
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 from logzero import logger
 import logzero
 
-from services.smartapi_service import smartapi_service
-from services.websocket_client import websocket_client
-from services.processing_engine import processing_engine
-from ws_connection.connection_manager import manager
-from core.config import settings
-from auth_api import router as auth_router
+# Local application imports
+from .services.smartapi_service import smartapi_service
+from .services.websocket_client import websocket_client
+from .services.processing_engine import processing_engine
+from .services.connection_manager import manager
+from .auth_api import router as auth_router
 
+# Load environment variables and configure logging
+load_dotenv()
 logzero.loglevel(logzero.INFO)
 
 @asynccontextmanager
