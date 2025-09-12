@@ -113,6 +113,14 @@ class ProcessingEngine:
         opening_range_end = time(9, 30)
 
         while True:
+            # --- TEST PATCH: Always force a test signal for token '10666' ---
+            self.scan_results['10666'] = {
+                "symbol": "PNB-EQ",
+                "score": 123,
+                "price": 100.0,
+                "bias": "Bullish"
+            }
+            logger.info(f"[TEST] Forced test signal in scan_results: {self.scan_results['10666']}")
             try:
                 tick_data = await websocket_client.data_queue.get()
                 now_ist = datetime.now(ist)
