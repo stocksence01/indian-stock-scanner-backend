@@ -44,6 +44,7 @@ app = FastAPI(
 )
 
 async def broadcast_live_watchlist():
+    print("broadcast_live_watchlist started")
     """Broadcasts the full, live-updating watchlist to the frontend."""
     while True:
         await asyncio.sleep(2)  # Send updates every 2 seconds
