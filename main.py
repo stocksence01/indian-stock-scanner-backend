@@ -44,6 +44,14 @@ async def broadcast_live_watchlist():
     """Broadcasts the full, live-updating watchlist to the frontend."""
     while True:
         await asyncio.sleep(2)  # Send updates every 2 seconds
+        # --- TEST PATCH: Always force a test signal for frontend testing ---
+        processing_engine.scan_results['10666'] = {
+            "symbol": "PNB-EQ",
+            "score": 123,
+            "price": 100.0,
+            "bias": "Bullish"
+        }
+        logger.info(f"[TEST] Forced test signal in scan_results: {processing_engine.scan_results['10666']}")
         # Use scan_results for scored signals instead of live_stock_data
         all_stocks = list(processing_engine.scan_results.values())
         indices = list(processing_engine.index_data.values())
