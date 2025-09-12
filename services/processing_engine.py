@@ -113,20 +113,22 @@ class ProcessingEngine:
         opening_range_end = time(9, 30)
 
         while True:
-            # --- TEST PATCH: Always force a test signal for token '10666' ---
-            self.scan_results['10666'] = {
-                "symbol": "PNB-EQ",
-                "score": 123,
-                "price": 100.0,
-                "bias": "Bullish"
-            }
-            logger.info(f"[TEST] Forced test signal in scan_results: {self.scan_results['10666']}")
             try:
                 tick_data = await websocket_client.data_queue.get()
+                token = str(tick_data.get("token"))
+                symbol = settings.TOKEN_MAP.get(token, {}).get("symbol", "TEST-EQ")
+                # --- ADVANCED PATCH: Always inject a test signal for any token that receives a tick ---
+                self.scan_results[token] = {
+                    "symbol": symbol,
+                    "score": 123,
+                    "price": 100.0,
+                    "bias": "Bullish"
+                }
+                print(f"[TEST] Forced test signal in scan_results: {self.scan_results[token]}")
+
                 now_ist = datetime.now(ist)
                 now_time = now_ist.time()
 
-                token = str(tick_data.get("token"))
                 ltp = tick_data.get("last_traded_price")
                 open_price_day = tick_data.get("open_price_of_the_day")
                 cumulative_volume = tick_data.get("volume_trade_for_the_day")
@@ -211,17 +213,6 @@ class ProcessingEngine:
                             logger.info(f"Added to scan_results (confirmation): {self.scan_results[token]}")
                         else:
                             self.scan_results.pop(token, None)
-
-                # --- TEST PATCH: Force a test signal for token '10666' ---
-                test_token = '10666'
-                if token == test_token:
-                    self.scan_results[test_token] = {
-                        "symbol": "PNB-EQ",
-                        "score": 123,
-                        "price": 100.0,
-                        "bias": "Bullish"
-                    }
-                    logger.info(f"[TEST] Forced test signal in scan_results: {self.scan_results[test_token]}")
 
             except asyncio.CancelledError:
                 logger.info("Processing loop cancelled.")
