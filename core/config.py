@@ -4,7 +4,6 @@ import random
 from logzero import logger
 from dotenv import load_dotenv
 
-# Find the absolute path to the .env file to ensure it's always found
 basedir = os.path.abspath(os.path.dirname(__file__))
 dotenv_path = os.path.join(basedir, '..', '.env')
 load_dotenv(dotenv_path=dotenv_path)
@@ -59,7 +58,6 @@ def load_scannable_stocks():
         return {}
 
 class Settings:
-    # --- Securely load credentials from Environment Variables ---
     API_KEY = os.getenv("API_KEY")
     CLIENT_CODE = os.getenv("CLIENT_CODE")
     CLIENT_PASSWORD = os.getenv("CLIENT_PASSWORD")
