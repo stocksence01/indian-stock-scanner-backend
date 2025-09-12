@@ -1,5 +1,3 @@
-# backend/core/config.py
-
 import os
 import json
 import random
@@ -14,29 +12,32 @@ load_dotenv(dotenv_path=dotenv_path)
 
 def load_scannable_stocks():
     """
-    Loads the daily watchlist. If it doesn't exist, falls back to the full list.
-    Returns a dict mapping token (as string) to stock info.
+    Loads the daily watchlist. If it doesn't exist, falls back to a random
+    selection from the full scannable_stocks.json list.
     """
     try:
         with open('daily_watchlist.json', 'r') as f:
-            stock_list = json.load(f)
-            token_map = {str(s["token"]): s for s in stock_list}
+            # --- THE FIX IS HERE: We now correctly load the dictionary format ---
+            token_map = json.load(f)
             logger.info(f"SUCCESS: Loaded {len(token_map)} stocks from daily_watchlist.json")
             return token_map
     except FileNotFoundError:
         logger.warning("daily_watchlist.json not found. Falling back to the full scannable_stocks.json list.")
         try:
             with open('scannable_stocks.json', 'r') as f:
-                stock_list = json.load(f)
-                random.shuffle(stock_list)
-                limited_list = stock_list[:100]
-                token_map = {str(s["token"]): s for s in limited_list}
+                full_stock_list = json.load(f)
+                # Convert the dictionary to a list of items to be shuffled
+                stock_items = list(full_stock_list.items())
+                random.shuffle(stock_items)
+                # Take the first 20 from the shuffled list
+                limited_list = stock_items[:20]
+                # Convert the limited list back into the correct dictionary format
+                token_map = {token: {"symbol": symbol, "bias": "Neutral"} for token, symbol in limited_list}
                 logger.info(f"Loaded {len(token_map)} random stocks from the full list.")
                 return token_map
         except FileNotFoundError:
             logger.error("scannable_stocks.json also not found! Please run instrument_downloader.py.")
-            # Provide a fallback with a single stock (RELIANCE) so the app doesn't crash
-            return {"2885": {"symbol": "RELIANCE-EQ", "bias": "Bullish", "token": "2885"}}
+            return {"2885": {"symbol": "RELIANCE-EQ", "bias": "Bullish"}}
     except Exception as e:
         logger.exception(f"Error loading stock list: {e}")
         return {}
@@ -60,3 +61,5 @@ class Settings:
         stock_tokens = list(self.TOKEN_MAP.keys())
         index_tokens = list(self.INDEX_TOKENS.keys())
         return stock_tokens + index_tokens
+
+settings = Settings()
