@@ -29,8 +29,7 @@ class WebSocketClient:
         """
         # --- THIS IS THE CRUCIAL TEST ---
         # We are adding this log to see if any data is actually arriving.
-        logger.info(f"Tick received: {message}")
-        
+        # logger.info(f"Tick received: {message}")  # Disabled to reduce log clutter
         try:
             self.data_queue.put_nowait(message)
         except asyncio.QueueFull:
