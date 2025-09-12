@@ -1,9 +1,9 @@
+from __future__ import annotations
+
 import sys
 import os
 # Add the project root to the Python path to fix import errors
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from __future__ import annotations
 
 # Standard library imports
 import os
