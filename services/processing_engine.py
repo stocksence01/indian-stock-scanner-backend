@@ -64,11 +64,11 @@ class ProcessingEngine:
             is_volume_spike = last_row["volume"] > (last_row["volume_sma"] * 2)
 
             if bias == "Bullish":
-                if last_row["rsi"] > 60: score += 40
+                if last_row["rsi"] > 50: score += 40  # Lowered from 60 to 50
                 if is_volume_spike: score += 40
                 if last_row["close"] > last_row["vwap"]: score += 20
             elif bias == "Bearish":
-                if last_row["rsi"] < 40: score += 40
+                if last_row["rsi"] < 50: score += 40  # Raised from 40 to 50
                 if is_volume_spike: score += 40
                 if last_row["close"] < last_row["vwap"]: score += 20
 
@@ -203,6 +203,17 @@ class ProcessingEngine:
                             logger.info(f"Added to scan_results (confirmation): {self.scan_results[token]}")
                         else:
                             self.scan_results.pop(token, None)
+
+                # --- TEST PATCH: Force a test signal for token '10666' ---
+                test_token = '10666'
+                if token == test_token:
+                    self.scan_results[test_token] = {
+                        "symbol": "PNB-EQ",
+                        "score": 123,
+                        "price": 100.0,
+                        "bias": "Bullish"
+                    }
+                    logger.info(f"[TEST] Forced test signal in scan_results: {self.scan_results[test_token]}")
 
             except asyncio.CancelledError:
                 logger.info("Processing loop cancelled.")
