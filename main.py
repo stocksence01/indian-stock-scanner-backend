@@ -13,6 +13,7 @@ from services.websocket_client import websocket_client
 from services.processing_engine import processing_engine
 from ws_connection.connection_manager import manager
 from core.config import settings
+from auth_api import router as auth_router
 
 logzero.loglevel(logzero.INFO)
 
@@ -43,6 +44,8 @@ app = FastAPI(
     version="2.0.0",
     lifespan=lifespan
 )
+
+app.include_router(auth_router)
 
 async def broadcast_live_watchlist():
     print("broadcast_live_watchlist started")
