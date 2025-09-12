@@ -9,49 +9,42 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 dotenv_path = os.path.join(basedir, '..', '.env')
 load_dotenv(dotenv_path=dotenv_path)
 
-
 def load_scannable_stocks():
     """
     Loads the daily watchlist. If it doesn't exist, falls back to a random
     selection from the full scannable_stocks.json list.
-    This version robustly handles both dictionary and list formats.
+    Always returns a dict mapping token (as string) to stock info.
     """
     try:
         with open('daily_watchlist.json', 'r') as f:
-            data = json.load(f)
-            token_map = {}
-            # --- THE FIX IS HERE: Smartly handle both formats ---
-            if isinstance(data, dict):
-                # If it's already a dictionary, use it directly
-                token_map = data
-            elif isinstance(data, list):
-                # If it's a list, convert it to the correct dictionary format
-                token_map = {str(s.get("token")): s for s in data if s.get("token")}
-            
+            stock_list = json.load(f)
+            # If it's already a dict, just return it
+            if isinstance(stock_list, dict):
+                token_map = stock_list
+            else:
+                # Assume it's a list of dicts, convert to token-keyed dict
+                token_map = {str(s["token"]): s for s in stock_list}
             logger.info(f"SUCCESS: Loaded {len(token_map)} stocks from daily_watchlist.json")
             return token_map
     except FileNotFoundError:
         logger.warning("daily_watchlist.json not found. Falling back to the full scannable_stocks.json list.")
         try:
             with open('scannable_stocks.json', 'r') as f:
-                full_stock_list = json.load(f)
-                # Ensure we handle dict or list format here as well
-                if isinstance(full_stock_list, dict):
-                    stock_items = list(full_stock_list.items())
+                stock_list = json.load(f)
+                if isinstance(stock_list, dict):
+                    stock_items = list(stock_list.items())
                     random.shuffle(stock_items)
                     limited_list = stock_items[:20]
-                    # Create a dict with the expected structure
-                    token_map = {token: {"symbol": symbol, "bias": "Neutral"} for token, symbol in limited_list}
-                else: # Assuming it's a list
-                    random.shuffle(full_stock_list)
-                    limited_list = full_stock_list[:20]
-                    token_map = {str(s.get("token")): s for s in limited_list if s.get("token")}
-
+                    token_map = {token: info for token, info in limited_list}
+                else:
+                    random.shuffle(stock_list)
+                    limited_list = stock_list[:20]
+                    token_map = {str(s["token"]): s for s in limited_list}
                 logger.info(f"Loaded {len(token_map)} random stocks from the full list.")
                 return token_map
         except FileNotFoundError:
             logger.error("scannable_stocks.json also not found! Please run instrument_downloader.py.")
-            return {"2885": {"symbol": "RELIANCE-EQ", "bias": "Bullish"}}
+            return {"2885": {"symbol": "RELIANCE-EQ", "bias": "Bullish", "token": "2885"}}
     except Exception as e:
         logger.exception(f"Error loading stock list: {e}")
         return {}
@@ -77,4 +70,3 @@ class Settings:
         return stock_tokens + index_tokens
 
 settings = Settings()
-
