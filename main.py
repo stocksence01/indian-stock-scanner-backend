@@ -18,6 +18,7 @@ logzero.loglevel(logzero.INFO)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    print("lifespan function started")
     """Handles application startup and shutdown events."""
     logger.info("Application starting up...")
 
