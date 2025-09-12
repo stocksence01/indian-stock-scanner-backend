@@ -21,12 +21,13 @@ def load_scannable_stocks():
             if isinstance(data, dict):
                 token_map = {}
                 for token, info in data.items():
+                    # info is a dict, token is a string
                     token_map[str(token)] = {"token": str(token), **info}
                 logger.info(f"SUCCESS: Loaded {len(token_map)} stocks from daily_watchlist.json (dict format)")
                 return token_map
             # If it's a list of dicts, convert to token-keyed dict
             elif isinstance(data, list):
-                token_map = {str(s["token"]): s for s in data if "token" in s}
+                token_map = {str(s["token"]): s for s in data if isinstance(s, dict) and "token" in s}
                 logger.info(f"SUCCESS: Loaded {len(token_map)} stocks from daily_watchlist.json (list format)")
                 return token_map
             else:
@@ -47,7 +48,7 @@ def load_scannable_stocks():
                     return {}
                 random.shuffle(stock_list)
                 limited_list = stock_list[:20]
-                token_map = {str(s["token"]): s for s in limited_list if "token" in s}
+                token_map = {str(s["token"]): s for s in limited_list if isinstance(s, dict) and "token" in s}
                 logger.info(f"Loaded {len(token_map)} random stocks from the full list.")
                 return token_map
         except FileNotFoundError:
